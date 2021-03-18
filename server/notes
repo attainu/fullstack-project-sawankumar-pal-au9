@@ -1,0 +1,48 @@
+                APIs
+            Products Routes
+            ------------------
+            1. add a product:- http://localhost:9800/products [POST]
+            2. list all the products:- http://localhost:9800/products [GET]
+            3. get one product based on name:- http://localhost:9800/products/{name} [GET]
+            4.get one product based on id:- http://localhost:9800/products/?{id} [GET]
+            5. add multiple products:- http://localhost:9800/products/mult [POST]
+
+            Orders Routes
+            ----------------------
+            1. add an order http://localhost:9800/orders [POST]
+            2. list all the orders:- http://localhost:9800/orders [GET]
+            3. get one order based on user name:- http://localhost:9800/orders/{name} [GET]
+            4. get one order based on id/email:- http://localhost:9800/orders/?{id}  ?email [GET]
+            5. update an order status http://localhost:9800/orders/{id} [patch]
+
+            Cart Routes
+            -----------------------
+            1. add an product to cart http://localhost:9800/cart [POST]
+            2. get one item based on user name:- http://localhost:9800/cart/{name} [GET]
+            3. get one item based on id:- http://localhost:9800/cart/{id} [GET]
+            4. delete an item from cart http://localhost:9800/cart/{id} [delete]
+
+            JWT Routes
+            --------------------
+            1. get all :- http://localhost:9800/users/ [get]
+            2. register:- http://localhost:9800/users/register [post]
+            3. login:- http://localhost:9800/users/login [post]
+            4. user profile:- http://localhost:9800/users/profile [get]
+
+            extra
+            5. user by id:- http://localhost:9800/users/{id} [get]
+            6. update user:- http://localhost:9800/users/{id} [put]
+            7. update one to admin:- http://localhost:9800/users/admin/{id} [put]
+            8. deleteone:- http://localhost:9800/users/{id} [delete]
+
+            Category Routes
+            ------------------
+            1. create a category:- http://localhost:9800/category [POST]
+            2. list all the categories:- http://localhost:9800/category [GET]
+            3. get one category based on name:- http://localhost:9800/category/{category} [GET]
+            4.get one category based on id:- http://localhost:9800/category/{id} [GET]
+
+            Google oath and FB oath
+            
+
+
