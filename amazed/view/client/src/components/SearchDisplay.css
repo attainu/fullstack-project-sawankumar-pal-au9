@@ -1,0 +1,61 @@
+.searchContainer {
+    border: 2px solid #f8f8ff;
+    border-radius: 10px;
+    box-shadow: 4px 4px 12px grey;
+    background-color: #f8f8ff;
+    margin: 20px 0 20px 25px;
+    max-width: 95%;
+    max-height: 800px;
+    overflow: hidden;
+}
+
+.searchResult {
+    border-left: 2px solid grey;
+}
+
+.loader {
+    margin-left: 35%;
+}
+
+.searchContainer * {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.searchContainer * img {
+    max-width: 80%;
+    max-height: 250px;
+    margin: 22px
+}
+
+.link {
+    color: #67AFCB;
+}
+
+.link:hover {
+    color: purple;
+}
+
+.searchContainer * p {
+    font-size: 20px;
+}
+
+.rating {
+    font-weight: 550;
+    font-size: 24px;
+    color: teal
+}
+
+.amount {
+    font-size: 24px;
+}
+
+.managePage {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px;
+}
+
+.noData {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: red
+}

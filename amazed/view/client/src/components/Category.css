@@ -1,0 +1,61 @@
+.sliderImage > img {
+    height: 400px;
+    width: 100%;
+}
+
+.home-container{
+    margin-top: 30px;
+    width: 95%;   
+}
+
+.categoryCard {
+    border: 2px solid #f8f8ff;
+    border-radius: 20px;
+    max-width: 30%;
+    max-height: 950px;
+    margin: 15px;
+    background-color: #f8f8ff;
+    display: inline-block;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: hidden;
+    transition: transform 0.5s ease-in 0s;
+}
+
+.categoryCard:hover{
+    transform: scale(1.06,1.06);
+    z-index: 1;
+}
+
+.categoryCard > img {
+    height: 130px;
+    width: 100px;
+    margin: 20px;
+}
+
+.homeTitle {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    color: #1A3E4C;
+} 
+
+.cardTitle {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    color: #347B98;
+}
+
+.categoryCard * h4{
+    color: orange;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+@media only screen and (max-width: 1050px) {
+    .categoryCard {
+        max-width: 45%;
+    }
+}@media only screen and (max-width: 750px) {
+    .categoryCard {
+        max-width: 80%;
+    }
+}
+

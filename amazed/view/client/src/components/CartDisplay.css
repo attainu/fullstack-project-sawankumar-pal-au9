@@ -1,0 +1,27 @@
+.cartContainer {
+    border: 2px solid #f8f8ff;
+    border-radius: 10px;
+    box-shadow: 4px 4px 12px grey;
+    background-color: #f8f8ff;
+    margin: 20px 0px;
+    padding: 10px;
+    max-width: 95%;
+    max-height: 800px;
+    overflow: hidden; 
+}
+
+.cartImage {
+    max-width: 95%;
+    max-height: 280px;
+}
+
+.cartHeading {
+    font-weight: 700;
+    color: #1A3E4C;
+}
+
+.emptyCart {
+    font-size: 18px;
+    color: red;
+    margin-top: 200px;
+}

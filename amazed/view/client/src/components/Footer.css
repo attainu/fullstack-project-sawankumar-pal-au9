@@ -1,0 +1,23 @@
+footer {
+    background-color: #1A3E4C;
+    color:#E4F1F6;
+}
+
+.top-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top:15px;
+}
+
+.top-heading {
+    font-size: 16px;
+    font-weight: bold;
+    
+}
+
+.line {
+   border-top: 1px solid #c9c7c7;
+}
+a {
+    color:#E4F1F6;
+}
