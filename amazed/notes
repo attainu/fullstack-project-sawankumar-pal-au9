@@ -1,0 +1,76 @@
+            APIs
+    Products Routes
+    ------------------
+    1. add a product:- http://localhost:9800/products [POST]
+    2. list all the products:- http://localhost:9800/products [GET]
+    3. get one product based on id:- http://localhost:9800/products/?{id} [GET]
+    4. add multiple products:- http://localhost:9800/products/mult [POST]
+    5. get products based on category:- http://localhost:9800/products/category/?category={category} [get]
+    6. get products based on category, product and type:-
+       http://localhost:9800/products/category/?category={category}&product={product}&type={type} [get]
+
+    Orders Routes
+    ----------------------
+    1. add an order http://localhost:9800/orders [POST]
+    2. list all the orders:- http://localhost:9800/orders [GET]
+    3. get one order based on user name:- http://localhost:9800/orders/{name} [GET]
+    4. get one order based on id/email:- http://localhost:9800/orders/?{id}  ?email [GET]
+    5. update an order status http://localhost:9800/orders/{id} [patch]
+
+    Cart Routes
+    -----------------------
+    1. add an product to cart http://localhost:9800/cart [POST]
+    2. get one item based on user name:- http://localhost:9800/cart/{name} [GET]
+    3. get one item based on id:- http://localhost:9800/cart/{id} [GET]
+    4. delete an item from cart http://localhost:9800/cart/{id} [delete]
+
+    JWT Routes
+    --------------------
+    1. get all :- http://localhost:9800/users [get]
+    2. register:- http://localhost:9800/users/register [post]
+    3. login:- http://localhost:9800/users/login [post]
+    4. user profile:- http://localhost:9800/users/profile [get]
+
+    extra
+    5. user by id:- http://localhost:9800/users/{id} [get]
+    6. update user:- http://localhost:9800/users/{id} [put]
+    7. update one to admin:- http://localhost:9800/users/admin/{id} [put]
+    8. deleteone:- http://localhost:9800/users/{id} [delete]
+
+    Category Routes
+    ------------------
+    1. create a category:- http://localhost:9800/categories [POST]
+    2. list all the categories:- http://localhost:9800/categories [GET]
+
+    SubCategory Routes
+    -------------------
+    1. get subcategories:- http://localhost:9800/subcategories/:categoryNumber [GET]
+    
+    Product Details Routes
+    ----------------------
+    1. add new product detail :- http://localhost:9800/details [POST]
+    2. get product detail based on asin id:- http://localhost:9800/details/{asin} [GET]
+    3. delete product detail based on asin id:- http://localhost:9800/details/delete/{asin} [GET]
+    
+
+    Product Reviews Routes
+    ----------------------
+    1. get review of a product based on asin http://localhost:9800/reviews/{asin}
+    2. add review for a product http://localhost:9800/reviews/add/:asin
+    Google oath and FB oath
+            
+
+    Deployed links:-
+        > https://amazed-be.herokuapp.com/health [GET]
+        > https://amazed-be.herokuapp.com/categories [GET]
+        > https://amazed-be.herokuapp.com/categories/add [POST]
+        > https://amazed-be.herokuapp.com/subcategories/:categoryNumber [GET] 
+        > https://amazed-be.herokuapp.com/products [POST]
+        > https://amazed-be.herokuapp.com/products [GET]
+        > https://amazed-be.herokuapp.com/products/category/?category={category} [GET]
+        > https://amazed-be.herokuapp.com/products/category/?category={category}&product={product}&type={type} [GET]
+        > https://amazed-be.herokuapp.com/details [POST]
+        > https://amazed-be.herokuapp.com/details/:asin [GET]
+        > https://amazed-be.herokuapp.com/details/delete/:asin [DELETE]
+        > https://amazed-be.herokuapp.com/reviews/:asin [GET]
+        > https://amazed-be.herokuapp.com/reviews/add/:asin [PUT]

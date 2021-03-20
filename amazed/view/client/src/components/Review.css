@@ -1,0 +1,22 @@
+.reviewHeading {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 600;
+    color: #347B98;
+}
+
+.reviews {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.reviews * p {
+    font-size: 16px;
+}
+
+.reviewTitle {
+    color: #67AFCB;
+    margin-bottom: 0%;
+}
+
+.reviewDate {
+    color: grey;
+}

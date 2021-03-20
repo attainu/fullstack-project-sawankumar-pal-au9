@@ -1,0 +1,78 @@
+#brand {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 25px;
+    color: orange;
+}
+
+.brandlink {
+    margin: auto 20px 0;
+}
+
+.welcome-messge {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    color: orange;
+    font-weight: bold;
+    padding:8px;
+}
+
+.logout {
+    background-color: rgb(34, 34, 25);
+    color: white;
+    font-size: 18px;
+    margin: 10px 5px;
+    padding:2px;
+    border-style: none;
+}
+
+.logout:hover {
+    text-decoration: none;
+    background-color: rgb(34, 34, 25);
+    color: white;
+    font-size: 18px;
+    margin: 8px;
+    padding:2px;
+    border-style: none;
+}
+
+.logout:visited {    
+    background-color: rgb(34, 34, 25);
+    color: white;
+    font-size: 18px;
+    margin: 8px;
+    padding:2px;
+    border-style: none;
+    text-decoration: none;
+}
+
+.adminHeader {
+    background-color: rgb(34, 34, 25);
+    font-size: 18px;
+    margin: 10px 5px;
+    padding:2px;
+    border-style: none;
+}
+
+.adminHeader:hover {
+    margin: 8px;
+    background-color: rgb(34, 34, 25);
+}
+
+.cart {
+    background-color: rgb(34, 34, 25);
+    font-size: 18px;
+    margin: 10px 10px;
+    padding:2px;
+    border-style: none;
+}
+
+.cart:hover {
+    margin: 8px;
+    padding: 0 10px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .search {
+        margin-left: 160px;
+    }
+}

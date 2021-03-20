@@ -1,0 +1,22 @@
+.detailTitle {
+    color: #67AFCB;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.datailImage * img {
+    max-width: 80%;
+    max-height: 350px
+}
+
+.price {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.description {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.description * b {
+    font-size: 18px;
+}
