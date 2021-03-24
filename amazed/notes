@@ -30,8 +30,6 @@
     2. register:- http://localhost:9800/users/register [post]
     3. login:- http://localhost:9800/users/login [post]
     4. user profile:- http://localhost:9800/users/profile [get]
-
-    extra
     5. user by id:- http://localhost:9800/users/{id} [get]
     6. update user:- http://localhost:9800/users/{id} [put]
     7. update one to admin:- http://localhost:9800/users/admin/{id} [put]

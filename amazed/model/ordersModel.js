@@ -55,6 +55,8 @@ const OrdersSchema = mongoose.Schema({
         currentPrice:Number,
         quantity:Number,
         totalPrice:Number,
+        couponDiscount:Number,
+        grandTotal:Number,
         paymentMode:String
     },
     orderStatus:String,

@@ -60,25 +60,31 @@ class Header extends React.Component {
     checkForUserType = () => {
         if(sessionStorage.getItem('role') === 'Admin') {
             return (
-                <li>
-                    <button className="headerBtn">
-                        <Link style={{textDecoration:'none', color:'white'}} to="/admin">
-                            <i className="fa fa-user"></i> Admin
-                        </Link>
-                    </button>
+                <>
+                    <li>
+                        <button className="headerBtn">
+                            <Link style={{textDecoration:'none', color:'white'}} to="/admin">
+                                <i className="fa fa-user"></i> Admin
+                            </Link>
+                        </button>
+                    </li>
 
-                    <button className="headerBtn">
-                        <Link style={{textDecoration:'none', color:'white'}} to="/coupon">
-                            <i className="fa fa-tag"></i> Coupons
-                        </Link>
-                    </button>
+                    <li>
+                        <button className="headerBtn">
+                            <Link style={{textDecoration:'none', color:'white'}} to="/coupon">
+                                <i className="fa fa-tag"></i> Coupons
+                            </Link>
+                        </button>
+                    </li>
 
-                    <button className="headerBtn">
-                        <Link style={{textDecoration:'none', color:'white'}} to="/product">
-                            <i className="fa fa-product-hunt"></i> Products
-                        </Link>
-                    </button>
-                </li>
+                    <li>
+                        <button className="headerBtn">
+                            <Link style={{textDecoration:'none', color:'white'}} to="/product">
+                                <i className="fa fa-product-hunt"></i> Products
+                            </Link>
+                        </button>
+                    </li>
+                </>
             );
         }else {
             return (
@@ -95,6 +101,14 @@ class Header extends React.Component {
                         <button className="cart">
                             <Link style={{textDecoration:"none", color:'white'}} to="/cart">
                                 <i className="fa fa-cart-plus"></i> Cart
+                            </Link>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button className="headerBtn">
+                            <Link style={{textDecoration:'none', color:'white'}} to="/usercoupon">
+                                <i className="fa fa-tag"></i> Coupons
                             </Link>
                         </button>
                     </li>
@@ -125,7 +139,8 @@ class Header extends React.Component {
             return(
                 <ul className="nav navbar-nav navbar-right">
                     <li>
-                        <button className="auth"><Link style={{textDecoration:'none', color: 'white'}} to="/signin">
+                        <button className="auth">
+                            <Link style={{textDecoration:'none', color: 'white'}} to="/signin">
                             <i className="fa fa-sign-in"></i> SignUp / SignIn</Link>
                         </button>
                     </li>
@@ -216,15 +231,15 @@ class Header extends React.Component {
 
                         <center>
                             <div className="search form-group col-md-offset-3 col-md-3 col-sm-8">
-                                <select id="category" className="form-control" onChange={this.getSubCategories}>
-                                    <option className="default_opt" selected disabled>Select Category</option>
+                                <select id="category" defaultValue="default" className="form-control" onChange={this.getSubCategories}>
+                                    <option className="default_opt" value="default" disabled>Select Category</option>
                                     { this.renderCategoryOptions(this.state.categories) }
                                 </select>
                             </div>
 
                             <div className="search form-group col-md-3 col-sm-8">
-                                <select className="form-control" onChange={this.renderSearch}>
-                                    <option className="default_opt" selected disabled>Select Sub-Category</option>
+                                <select className="form-control" defaultValue="default" onChange={this.renderSearch}>
+                                    <option className="default_opt" value="default" disabled>Select Sub-Category</option>
                                     { this.renderSubCategoriesOptions(this.state.subCategories) }
                                 </select>
                             </div>

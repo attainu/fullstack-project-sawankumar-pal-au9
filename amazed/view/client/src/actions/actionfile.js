@@ -11,6 +11,7 @@ const getAllUser_url = "http://localhost:9800/users";
 const subcategory_url = 'http://localhost:9800/subcategories';
 const coupon_url = 'http://localhost:9800/coupons';
 const contact_url = 'http://localhost:9800/contacts';
+const user_url ='http://localhost:9800/users'
 
 export function categories(){
     const output = fetch(category_url, {method:'GET'})
@@ -315,4 +316,37 @@ export function deleteCoupon(id){
         type: 'DELETE_COUPON',
         payload: output
     }
+}
+export function updateCoupon(id, data){
+    const output = fetch(`${coupon_url}/${id}`,{ 
+        method:'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .catch(err => console.log(err))
+
+    return {
+        type: 'UPDATE_COUPON',
+        payload: output
+    }
+}
+export function updateProfile(userDetails){	
+    const id = userDetails._id
+    const output = fetch(`${user_url}/${id}`, {	
+        method:'PUT',	
+        headers: {	
+                    'Accept':'application/json',	
+                    'Content-Type':'application/json'	
+                },	
+                body: JSON.stringify(userDetails)	
+                })	
+    .then((res) => res.json())	
+    return {	
+        type: 'UPDATE_USER',		
+        payload: "successfully updated the profile"	
+    }	
 }

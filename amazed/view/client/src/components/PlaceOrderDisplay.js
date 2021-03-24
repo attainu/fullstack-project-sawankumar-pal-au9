@@ -1,6 +1,6 @@
 import './PlaceOrder.css';
 const PlaceOderDisplay = (props) => {
-    const renderCoupon =(data) => {
+    const renderCoupon = (data) => {
         // console.log(data)
         return data.map((item) => {
             return(
@@ -8,6 +8,40 @@ const PlaceOderDisplay = (props) => {
             )
         })        
     }
+
+    const renderOptions = (data) => {
+        // console.log(data)
+        if(data && data.length > 0) {
+            let flag = true;
+            return data.map((item, idx) => {
+                let categoryNumber = sessionStorage.getItem('categoryNumber');
+                let expiryDate = new Date(item.expiryDate);
+                let date = new Date();
+                let tDate = `${date.getFullYear()}-${(date.getMonth() + 1)}-${date.getDate()}`;
+                let userEmail = sessionStorage.getItem('loggedInEmail');
+                
+                if(item.categoryNumber.toString() === categoryNumber && expiryDate >= new Date(tDate)) {
+                    if(!item.usedBy.includes(userEmail)) {
+                        flag = false;
+                        return (
+                            <option 
+                                key={item._id} 
+                                id={item._id}
+                                value={item.discountPercent}>
+                                    {item.couponName}
+                            </option>
+                        );
+                    }
+                }
+                if(flag && idx === data.length - 1) {
+                    return (
+                        <option>Not Available</option>
+                    )
+                }
+            })
+        }
+    }
+
     return(
         <div className="order-outer-container">
                 <form>
@@ -163,24 +197,17 @@ const PlaceOderDisplay = (props) => {
                                     <tr>
                                         <td>Coupons</td>
                                         <td>
-                                            <select id="coupon" name="coupon"
+                                            <select id="coupon" name="coupon" defaultValue="default"
                                                 onChange={(event) => props.couponChangeHandler(event.target.value)}>
-                                                <option>----Select the Coupon----</option>
-                                                    {/* {renderCoupon(props.coupon)} */}
-                                                    {renderCoupon(
-                                                        [{"couponCode":"FLAT50",
-                                                    "couponName":"Flat 50%",
-                                                    "discount":50},
-                                                    {"couponCode":"FLAT60",
-                                                    "couponName":"flat 60%",
-                                                    "discount":50}
-                                                    ])}
+                                                <option value="default">----Select the Coupon----</option>
+                                                { renderOptions(props.coupons) }
                                             </select>
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <td>Total</td>
-                                        <td>&#8377;{props.userData.totalPrice}</td>
+                                        <td>&#8377;{props.userData.grandTotal?props.userData.grandTotal:props.userData.totalPrice}</td>
                                     </tr>
                                     <tr>
                                         <td>Shipping</td>

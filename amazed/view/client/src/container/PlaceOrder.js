@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { placeOrder } from '../actions/actionfile';
+import { placeOrder, getAllCoupons, updateCoupon } from '../actions/actionfile';
 import PlaceOrderDisplay from '../components/PlaceOrderDisplay';
 import NotSignedIn from '../components/SignInLogin/NotSignedIn';
 
@@ -35,6 +35,8 @@ class PlaceOrder extends React.Component {
             status: 'Order Placed',
             delivered: false,
             success: '',
+            couponDiscount: '',
+            grandTotal: '',
             errors: {
                 fname: '',
                 lname: '',
@@ -70,6 +72,7 @@ class PlaceOrder extends React.Component {
             totalPrice: (productData.price.current_price) * (this.state.quantity)
         }, () => console.log(this.state))
         
+        this.props.dispatch(getAllCoupons());
     }
 
     blurHandler = (name, value) => {
@@ -152,23 +155,28 @@ class PlaceOrder extends React.Component {
     }
 
     quantitychangeHandler = (value) => {
+        let grandTotal = (this.state.currentPrice * value) - this.state.couponDiscount;
         this.setState({
             quantity: value,
-            totalPrice: this.state.currentPrice * value
+            grandTotal: grandTotal
         })
     }
     couponChangeHandler = (value) => {
+        console.log(value)
+        let discountPercent = (value === "Not Available" || value === "default") ? 0 : value;
+        let discount = (this.state.currentPrice * discountPercent) / 100;
+        let grandTotal = (this.state.totalPrice * this.state.quantity) - discount;
+
         this.setState({
             ...this.state,
-            coupon: value,
-            discountAmount: this.state.currentPrice - ((this.state.currentPrice * value) / 100),
-            totalPrice: this.state.discountAmount
+            couponDiscount: discount,
+            grandTotal: grandTotal?grandTotal:''
         })
     }
 
     submitHandler = () => {
         // console.log(this.state)
-        sessionStorage.removeItem('login')
+        sessionStorage.removeItem('login');
         let orderData = {
             date: tdate.getDate()+'/'+(tdate.getMonth()+1)+'/'+tdate.getFullYear(),
             userName:this.state.userName,
@@ -190,6 +198,8 @@ class PlaceOrder extends React.Component {
             currentPrice: this.state.currentPrice,
             quantity: this.state.quantity,
             totalPrice: this.state.totalPrice,
+            couponDiscount: this.state.couponDiscount,
+            grandTotal: this.state.grandTotal,
             payment: this.state.payment,
             status: this.state.status,
             delivered: this.state.delivered
@@ -209,6 +219,12 @@ class PlaceOrder extends React.Component {
                 errors: { ...this.state.errors, emptyFields: "" },
                 success: "Order Placed Successfully...!"
             })
+
+            if(this.state.couponDiscount) {
+                let ele = document.getElementById('coupon');
+                let id = ele[ele.selectedIndex].id;
+                this.props.dispatch(updateCoupon(id, {email: this.state.userEmail}));
+            }
 
             setTimeout(() => {
                 this.props.history.push('/orders');
@@ -230,6 +246,7 @@ class PlaceOrder extends React.Component {
             return(
                 <PlaceOrderDisplay
                 userData = {this.state}
+                coupons = {this.props.coupons}
                 changeHandler = {this.changeHandler}
                 blurHandler = {this.blurHandler}
                 submitHandler = {this.submitHandler}
@@ -261,12 +278,13 @@ class PlaceOrder extends React.Component {
 const mapStateToProps = (state) => {
     // console.log("from redux",state.order.orderStatus)
     return {
-        orderResponse: state.order.orderStatus
-
+        orderResponse: state.order.orderStatus,
+        coupons: state.coupon.getAllCoupons
     }
 }
 
-PlaceOrder.protoTypes = {
+PlaceOrder.prototypes = {
     dispatch: PropTypes.func
 }
+
 export default connect(mapStateToProps)(PlaceOrder)

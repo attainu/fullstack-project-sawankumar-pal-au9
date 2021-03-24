@@ -12,6 +12,9 @@ const coupon = (state={}, action) => {
         case 'DELETE_COUPON':
             return { ...state, deleteCoupon: action.payload }
 
+        case 'UPDATE_COUPON':
+            return { ...state, updateCoupon: action.payload }
+
         default:
             return state
     }

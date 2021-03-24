@@ -51,7 +51,7 @@ const SearchDisplay = (props) => {
                 return (
                     <div className="noData">
                         <center>
-                            <h3><b>No Data Found</b></h3>
+                            <img src="/images/nodata.jpg" alt="nodata"></img>
                         </center>
                     </div>
                 );

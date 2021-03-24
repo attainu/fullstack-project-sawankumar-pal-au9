@@ -139,3 +139,17 @@ button {
     border: none;
     padding: 2px;
 }
+.edit-button {
+    color: #298EDC;
+    margin-top: 5rem;
+    border: none;
+    font-weight: 600;
+    font-size: 18px;
+}
+.edit-button:hover,.edit-button:focus,.edit-button:active {
+    color: #298EDC;
+    margin-top: 5rem;
+    border: none;
+    font-weight: 600;
+    font-size: 18px;
+}

@@ -27,6 +27,8 @@ export const newOrder = async(req,res) => {
                 currentPrice : req.body.currentPrice,
                 quantity : req.body.quantity,
                 totalPrice : req.body.totalPrice,
+                couponDiscount: req.body.couponDiscount,
+                grandTotal: req.body.grandTotal,
                 paymentMode : req.body.payment
             },
             orderStatus : req.body.status,

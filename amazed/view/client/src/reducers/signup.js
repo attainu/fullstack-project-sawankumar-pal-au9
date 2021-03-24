@@ -15,6 +15,10 @@ const signup = (state={}, action) => {
         case 'GET_ALL_USERS':
 
             return { ...state, allusers: action.payload }
+        
+        case 'UPDATE_USER':
+
+            return { ...state, updatedDetails: action.payload }
 
         default:
             return state

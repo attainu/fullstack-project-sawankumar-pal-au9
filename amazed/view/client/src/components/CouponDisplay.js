@@ -4,7 +4,6 @@ import 'react-tabs/style/react-tabs.css';
 
 const CouponDisplay = (props) => {
     const renderData = (item) => {
-        console.log(item._id)
         return (
             <tr key={item._id}>
                 <td>{item.createdDate}</td>
@@ -16,10 +15,10 @@ const CouponDisplay = (props) => {
                 <td>
                     <button
                         value={item._id}
-                        style={{color:"red"}}
+                        style={{color:"red", outlineColor:"red"}}
                         onClick={props.delete}
                     >
-                        <i className="fa fa-trash"></i>
+                        Delete
                     </button>
                 </td>
             </tr>
@@ -77,6 +76,10 @@ const CouponDisplay = (props) => {
         props.history.push('/create_coupon');
     }
 
+    const renderSelect = () => {
+        props.toggleTabs()
+    }
+
     return (
         <React.Fragment>
             <div className="panel panel-primary">
@@ -85,7 +88,7 @@ const CouponDisplay = (props) => {
                     <button style={{float:"right", margin:"15px auto"}} onClick={createCoupon} className="btn btn-success">Create Coupon</button>
                 </div>
                 <div className="panel-body">
-                    <Tabs>
+                    <Tabs onSelect={renderSelect}>
                         <TabList>
                             <Tab style={{color:'red'}}>Active</Tab>
                             <Tab style={{color:'green'}}>Expired</Tab>
@@ -99,9 +102,10 @@ const CouponDisplay = (props) => {
                                 <label htmlFor="couponfilter" className="col-md-offset-9 col-md-1">
                                     <i className="fa fa-filter"></i> Filter{" "}
                                 </label>
-                                <select className="col-md-2" style={{display:"inline"}} onChange={props.Afilter}>
-                                        <option value="">All</option>
-                                        { renderCategories(props.categories) }
+                                <select className="col-md-2 filter" defaultValue={"default"} style={{display:"inline"}} onChange={props.Afilter}>
+                                    <option value="default" disabled>Select Category</option>
+                                    <option value="">All</option>
+                                    { renderCategories(props.categories) }
                                 </select>
                             </div>
 
@@ -132,9 +136,10 @@ const CouponDisplay = (props) => {
                                 <label htmlFor="couponfilter" className="col-md-offset-9 col-md-1">
                                     <i className="fa fa-filter"></i> Filter{" "}
                                 </label>
-                                <select className="col-md-2" style={{display:"inline"}} onChange={props.Efilter}>
-                                        <option value="">All</option>
-                                        { renderCategories(props.categories) }
+                                <select className="col-md-2 filter" defaultValue={"default"} style={{display:"inline"}} onChange={props.Efilter}>
+                                    <option value="default" disabled>Select Category</option>
+                                    <option value="">All</option>
+                                    { renderCategories(props.categories) }
                                 </select>
                             </div>
 

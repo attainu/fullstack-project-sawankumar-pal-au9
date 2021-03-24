@@ -45,8 +45,8 @@ class Coupon extends React.Component {
     }
 
     delete = (id) => {
-        console.log("Delete", typeof id)
-        this.props.dispatch(deleteCoupon(id))
+        this.props.dispatch(deleteCoupon(id));
+        this.props.dispatch(getAllCoupons());
     }
 
     Afilter = (category) => {
@@ -101,6 +101,10 @@ class Coupon extends React.Component {
         }
     }
 
+    toggle = () => {
+        this.props.dispatch(getAllCoupons());
+    }
+
     render() {
         return (
             <div className="container" style={{overflowX:"auto"}}>
@@ -108,6 +112,7 @@ class Coupon extends React.Component {
                     ActiveCoupons={ this.state.ActiveCoupons } 
                     ExpiredCoupons={ this.state.ExpiredCoupons }
                     categories={ this.props.categories }
+                    toggleTabs={() => this.toggle()}
                     delete={(e) => {
                         e.preventDefault();
                         this.delete(e.target.value)

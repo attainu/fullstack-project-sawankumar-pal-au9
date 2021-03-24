@@ -9,7 +9,7 @@ export const AddNewCoupon = async(req, res) => {
 
         let couponData = {
             couponName: req.body.couponName,
-            couponCode: req.body.couponCode,    
+            couponCode: req.body.couponCode.toUpperCase(),    
             createdDate: cur_date,
             category: req.body.category,
             categoryNumber: req.body.categoryNumber,
@@ -80,7 +80,7 @@ export const couponById = async(req, res) => {
 
 // delete coupon 
 export const deleteItem = async(req, res) => {
-    const id = req.params.id
+    const id = req.params.id;
     try {
         const response = await Coupons.findByIdAndDelete(id);
         res.status(204).send({"success":"successfully deleted"})
@@ -90,4 +90,24 @@ export const deleteItem = async(req, res) => {
         res.status(404).send({"err":error.message})
     }
 
+}
+
+//update coupon
+export const update = async(req, res) => {
+    const id = req.params.id;
+    try {
+        const response = await Coupons.update(
+            {_id: id},
+            {
+                $push: {
+                    usedBy: req.body.email
+                }
+            }
+        )
+
+        return res.status(200).send("Updated Successfully")
+    }
+    catch(error) {
+        return res.status(409).send({"err": error.message})
+    }
 }

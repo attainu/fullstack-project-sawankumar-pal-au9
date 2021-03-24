@@ -31,7 +31,7 @@ export const register = (req,res) =>{
         email:req.body.email,
         password:hashedPass,
         role:req.body.role?req.body.role:'User',
-        isActive: status,	
+        isActive: status?status:true,	
         imageUrl: req.body.imageUrl? req.body.imageUrl:'https://img.icons8.com/bubbles/100/000000/user.png',	
         phone:req.body.phone,	
         location:req.body.location
@@ -83,9 +83,9 @@ export const profileById = (req,res) =>{
 }
 
 export const updateUser = (req,res) => {
-    if(!req.session.user) {
-        return res.redirect('/?errmsg=No Session Found! Please Login Again')
-    }
+    // if(!req.session.user) {
+    //     return res.redirect('/?errmsg=No Session Found! Please Login Again')
+    // }
     const Id = req.params.id
     const status = req.body.isActive;
     let toBool = (status) => {
@@ -97,7 +97,6 @@ export const updateUser = (req,res) => {
          }
 
     }
-    // console.log("nesstatus",status)
     User.updateOne({_id:Id},
         {
             $set:{
@@ -105,14 +104,14 @@ export const updateUser = (req,res) => {
                 email: req.body.email,
                 role: req.body.role ?req.body.role:'User',
                 isActive: status?status:true,	
-                imageUrl: req.body.imageUrl,	
+                imageUrl: req.body.imageUrl? req.body.imageUrl:'https://img.icons8.com/bubbles/100/000000/user.png'	,	
                 phone:req.body.phone,	
                 location:req.body.location,
             }
         }
         , (err,result) => {
         if(err) return res.status(500).send({"err":"Error while updating the user"})
-        res.status(200).send("Data is updated")
+        res.status(200).send(result)
     })
 }
 

@@ -20,7 +20,7 @@ class ContactUs extends React.Component {
                 userEmail:'',
                 phone:'',
                 comment:'',
-            } 
+            }
             
         }
     }
