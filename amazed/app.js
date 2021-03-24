@@ -8,8 +8,8 @@ import reviews from './routes/reviewRoutes.js';
 import orders from './routes/ordersRoutes.js';
 import cart from './routes/cartRoutes.js';
 import user from './routes/userRoutes.js';
-import coupons from './routes/couponsRoutes.js';
 import subCategory from './routes/subCategoryRoutes.js';
+import coupons from './routes/couponsRoutes.js';
 import passport from 'passport';
 import google from './routes/googleRoutes.js';
 import facebook from './routes/facebookRouter.js';
@@ -64,6 +64,14 @@ app.use('/auth/facebook', facebook);
 app.get("*", (req, res) => {
   res.send("You've tried reaching a route that doesn't exist.")
 })
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('./view/client/build'));
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__diename, 'client', 'build', 'index.html'))
+  });
+}
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)

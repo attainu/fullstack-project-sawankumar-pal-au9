@@ -55,9 +55,12 @@ const Footer = () => {
                         <p className="details">
                             <Link to='/about'>About Us</Link>
                             </p>
+                            {
+                        (sessionStorage.getItem('role') !== 'Admin') && 
                         <p className="details">
-                        <Link to='/contact'>Contact Us</Link>
-                            </p>
+                            <Link to='/contact'>Contact Us</Link>
+                        </p>
+                        }
                     </div>
                 </div>
                 <hr className="line"/>

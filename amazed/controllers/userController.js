@@ -31,7 +31,10 @@ export const register = (req,res) =>{
         email:req.body.email,
         password:hashedPass,
         role:req.body.role?req.body.role:'User',
-        isActive: status
+        isActive: status,	
+        imageUrl: req.body.imageUrl? req.body.imageUrl:'https://img.icons8.com/bubbles/100/000000/user.png',	
+        phone:req.body.phone,	
+        location:req.body.location
 
     }, (err,result) => {
         if(err) return res.status(500),send('Error')
@@ -101,7 +104,10 @@ export const updateUser = (req,res) => {
                 name: req.body.name,
                 email: req.body.email,
                 role: req.body.role ?req.body.role:'User',
-                isActive: status?status:true
+                isActive: status?status:true,	
+                imageUrl: req.body.imageUrl,	
+                phone:req.body.phone,	
+                location:req.body.location,
             }
         }
         , (err,result) => {

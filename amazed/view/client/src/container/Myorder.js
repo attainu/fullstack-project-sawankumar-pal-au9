@@ -7,7 +7,6 @@ class Myorder extends React.Component{
 
     componentDidMount() {
         const query = `userEmail=${sessionStorage.getItem('loggedInEmail')}`;
-        console.log(query)
         this.props.dispatch(GetMyOrders(query))
     }
 

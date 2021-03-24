@@ -47,9 +47,11 @@ const CartDisplay = (props) => {
 
             else {
                 return (
-                    <div className="emptyCart">
-                        <b>Oops...! Your Cart Is Empty</b>
-                    </div>
+                    <center>
+                        <div className="emptyDisplay">
+                            <img src="/images/emptyCart.png" alt="emptyCart"></img>
+                        </div>
+                    </center>
                 );
             }
         }

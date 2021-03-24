@@ -9,6 +9,7 @@ export const F_Strategy = new FacebookStrategy({
     clientID: config.facebook.FACEBOOK_APP_ID,
     clientSecret: config.facebook.FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:9800/auth/facebook/callback",
+    proxy: true,
     profileFields: ['id', 'email', 'gender', 'link', 'locale', 'displayName', 'timezone', 'updated_time', 'verified']
   },
   function(accessToken, refreshToken, profile, done) {

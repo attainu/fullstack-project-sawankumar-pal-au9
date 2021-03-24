@@ -9,7 +9,7 @@ export const newOrder = async(req,res) => {
             userEmail : req.body.userEmail,
             orderDetails : {
                 firstName : req.body.fname,
-                lastName : req.body.fname,
+                lastName : req.body.lname,
                 houseAddress : req.body.houseadd,
                 apartment : req.body.apartment,
                 city : req.body.city,
@@ -78,11 +78,11 @@ export const ordersById = async(req,res) => {
 
 };
 
-//get orders by Username
-export const ordersByName = async(req,res) => {
+//get orders by userEmail
+export const ordersByEmail = async(req,res) => {
     try{
-        const name = req.params.name
-        const result = await Orders.find({userName:name}).sort({ date: -1})
+        const userEmail = req.query.userEmail
+        const result = await Orders.find({userEmail:userEmail}).sort({ date: -1})
 
         if(result.length <1) return res.status(404).send({"err":"No Data Found"});
         res.status(200).send(result)
@@ -92,6 +92,7 @@ export const ordersByName = async(req,res) => {
         res.status(200).send({"err":error.message})
     }
 };
+
 //update order
 export const updateOrder = async (req, res) => {
     const user = req.body;

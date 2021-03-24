@@ -1,50 +1,65 @@
+import React from 'react';
 const Contact = (props) => {
-    const redirect = (e) => {
-        e.preventDefault();
-        
-        const user = document.getElementById("user");
-        const email = document.getElementById("email");
-        const number = document.getElementById("number");
-        const comment = document.getElementById("comment");
-        if(user.value && email.value && number.value && comment.value) {
-            // alert("Your Query Submitted Successfully...!")
-            document.getElementById("contactSuccess").innerHTML = "Your Query Submitted Successfully...!";
-            setTimeout(() => {
-                props.history.push('/');
-            }, 1000);
-        }
-    }
-
     return(
         <div className="container">
             <div>
                 <h2>Contact Us</h2>
+                {/* <div style={{fontSize:"25px",color:"green"}}>
+                                <span id="contactSuccess">
+                                    <p>{props.contactResult}</p>
+                                </span>
+                </div> */}
                 <section>
                     <div className="w-30 m-auto">
                         <form>
                             <div className="form-group">
-                                <label>Username</label>
-                                <input type="text" name="user" autoComplete="off" id="user" className="form-control" required/>
+                                <label>Name</label>
+                                <input 
+                                    type="text" 
+                                    name="userName" 
+                                    autoComplete="off" id="user" 
+                                    className="form-control" required
+                                    value={props.contactInfo.userName}
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    <p className="error-display">{props.errors.userName}</p>
                             </div>
 
                             <div className="form-group">
                                 <label>Email</label>
-                                <input type="email" name="user" autoComplete="off" id="email" className="form-control" required/>
+                                <input 
+                                    type="text" 
+                                    name="userEmail" 
+                                    autoComplete="off" id="user" 
+                                    className="form-control" required
+                                    value={props.contactInfo.userEmail}
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    <p className="error-display">{props.errors.userEmail}</p>
                             </div>
 
                             <div className="form-group">
-                                <label>Mobile Number</label>
-                                <input type="number" name="user" autoComplete="off" id="number" className="form-control" required/>
+                                <label>Phone</label>
+                                <input 
+                                    type="phone" 
+                                    name="phone" 
+                                    autoComplete="off" id="phone" 
+                                    className="form-control" required
+                                    value={props.contactInfo.phone}
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    <p className="error-display">{props.errors.phone}</p>
                             </div>
-
                             <div className="form-group">
                                 <label>Comment</label>
-                                <textarea rows="6" id="comment" className="form-control" required></textarea>
+                                <input 
+                                    type="text" 
+                                    name="comment" 
+                                    autoComplete="off" id="comment" 
+                                    className="form-control" required
+                                    value={props.contactInfo.comment}
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    <p className="error-display">{props.errors.comment}</p>
                             </div>
-                            <div style={{fontSize:"16px",color:"green"}}>
-                                <span id="contactSuccess"></span>
-                            </div>
-                            <button style={{marginBottom:"30px"}} onClick={redirect} className="btn btn-warning">Submit</button>
+                            
+                            <button style={{marginBottom:"30px"}} onClick={props.submitHandler} className="btn btn-warning">Submit</button>
                         </form>
                     </div>
                 </section>

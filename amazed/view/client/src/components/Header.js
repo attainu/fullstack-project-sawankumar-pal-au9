@@ -41,14 +41,64 @@ class Header extends React.Component {
         })
     }
 
-    checkForAdmin = () => {
+    renderLogo = () => {
+        if(sessionStorage.getItem('role') === 'Admin') {
+            return (
+                <span className="brandlink">
+                    <Link to='/admin' className="navbar-brand"><b id="brand">amazed</b>.in</Link>
+                </span>
+            );
+        }else {
+            return (
+                <span className="brandlink">
+                    <Link to='/' className="navbar-brand"><b id="brand">amazed</b>.in</Link>
+                </span>
+            );
+        }
+    }
+
+    checkForUserType = () => {
         if(sessionStorage.getItem('role') === 'Admin') {
             return (
                 <li>
-                    <button className="adminHeader">
-                        <Link style={{textDecoration:'none', color:'white'}} to="/admin"><i className="fa fa-user"></i> Admin</Link>
+                    <button className="headerBtn">
+                        <Link style={{textDecoration:'none', color:'white'}} to="/admin">
+                            <i className="fa fa-user"></i> Admin
+                        </Link>
+                    </button>
+
+                    <button className="headerBtn">
+                        <Link style={{textDecoration:'none', color:'white'}} to="/coupon">
+                            <i className="fa fa-tag"></i> Coupons
+                        </Link>
+                    </button>
+
+                    <button className="headerBtn">
+                        <Link style={{textDecoration:'none', color:'white'}} to="/product">
+                            <i className="fa fa-product-hunt"></i> Products
+                        </Link>
                     </button>
                 </li>
+            );
+        }else {
+            return (
+                <>
+                    <li>
+                        <button className="headerBtn">
+                            <Link style={{textDecoration:'none', color:'white'}} to="/orders">
+                                <i className="fa fa-list" aria-hidden="true"></i> Orders
+                            </Link>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button className="cart">
+                            <Link style={{textDecoration:"none", color:'white'}} to="/cart">
+                                <i className="fa fa-cart-plus"></i> Cart
+                            </Link>
+                        </button>
+                    </li>
+                </>
             );
         }
     }
@@ -73,49 +123,40 @@ class Header extends React.Component {
     CondtionalRender = () => {
         if(this.state.userName === '' || this.state.userName === undefined || this.state.userName === null){
             return(
-                <>
-
+                <ul className="nav navbar-nav navbar-right">
                     <li>
-                        <button className="logout"><Link className="logout" style={{textDecoration:'none'}} to="/signup">
+                        <button className="auth"><Link style={{textDecoration:'none', color: 'white'}} to="/signin">
                             <i className="fa fa-sign-in"></i> SignUp / SignIn</Link>
                         </button>
                     </li>
                 
-                </>
+                </ul>
             );
         }
         else {
             return(
-                <>
-                    {/* <li className="welcome-messge">Welcome {sessionStorage.getItem('userName')}</li> */}
-                    {this.checkForAdmin()}
-                    <li>
-                        <button className="logout">
-                            <Link className="logout" style={{textDecoration:'none'}} to="/orders">
-                                <i className="fa fa-list" aria-hidden="true"></i> Orders
-                            </Link>
-                        </button>
-                    </li>
+                <ul className="nav navbar-nav navbar-right">
+                    {this.checkForUserType()} 
+
+                    <li>	
+                        <button className="cart">	
+                            <Link style={{textDecoration:"none", color:'white'}} to="/profile"><i className="fa fa-user-plus"></i> Profile</Link>	
+                        </button>	
+                    </li>  
 
                     <li>
-                        <button className="cart">
-                            <Link style={{textDecoration:"none", color:'white'}} to="/cart"><i className="fa fa-cart-plus"></i> Cart</Link>
-                        </button>
-                    </li>   
-
-                    <li>
-                        <button className="logout" onClick={this.handleLogout}>
+                        <button className="auth" onClick={this.handleLogout}>
                             <i className="fa fa-sign-out"></i>Signout
                         </button>
                     </li>
-                </>
+                </ul>
             ) 
         }
 
     }
 
     getSubCategories = (e) => {
-        console.log("Inside")
+        sessionStorage.setItem('categoryNumber', e.target.value);
         this.props.dispatch(subCategories(e.target.value));
     }
 
@@ -164,30 +205,31 @@ class Header extends React.Component {
                 <nav className="navbar navbar-inverse" style={{borderRadius:"0px"}}>
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <span className="brandlink">
-                                <Link to='/' className="navbar-brand"><b id="brand">amazed</b>.in</Link>
-                            </span>
+                            {this.renderLogo()}                       
                         </div>
 
-                        <ul className="nav navbar-nav navbar-right">
-                            {this.CondtionalRender()}
-                        </ul>
+                        {this.CondtionalRender()}    
                     </div>
-                    <center>
-                        <div className="search form-group col-md-offset-3 col-md-3 col-sm-8">
-                            <select id="category" className="form-control" onChange={this.getSubCategories}>
-                                <option className="default_opt" selected disabled>Select Category</option>
-                                { this.renderCategoryOptions(this.state.categories) }
-                            </select>
-                        </div>
 
-                        <div className="search form-group col-md-3 col-sm-8">
-                            <select className="form-control" onChange={this.renderSearch}>
-                                <option className="default_opt" selected disabled>Select Sub-Category</option>
-                                { this.renderSubCategoriesOptions(this.state.subCategories) }
-                            </select>
-                        </div>
-                    </center>
+                    {
+                        sessionStorage.getItem('role') !== 'Admin' &&
+
+                        <center>
+                            <div className="search form-group col-md-offset-3 col-md-3 col-sm-8">
+                                <select id="category" className="form-control" onChange={this.getSubCategories}>
+                                    <option className="default_opt" selected disabled>Select Category</option>
+                                    { this.renderCategoryOptions(this.state.categories) }
+                                </select>
+                            </div>
+
+                            <div className="search form-group col-md-3 col-sm-8">
+                                <select className="form-control" onChange={this.renderSearch}>
+                                    <option className="default_opt" selected disabled>Select Sub-Category</option>
+                                    { this.renderSubCategoriesOptions(this.state.subCategories) }
+                                </select>
+                            </div>
+                        </center>
+                    }
                 </nav>
             </header>
         );

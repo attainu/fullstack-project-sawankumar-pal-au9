@@ -15,7 +15,7 @@ class Home extends React.Component {
             console.log(query);
             const [token, userName, email] = query.split('&');
             if(token) {
-                sessionStorage.setItem('_ltk', token);
+                sessionStorage.setItem('token', token);
                 sessionStorage.setItem('userName', userName);
                 sessionStorage.setItem('loggedInEmail', email);
             }

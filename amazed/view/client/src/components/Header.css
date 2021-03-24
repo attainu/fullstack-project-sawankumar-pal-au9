@@ -16,7 +16,7 @@
     padding:8px;
 }
 
-.logout {
+.auth {
     background-color: rgb(34, 34, 25);
     color: white;
     font-size: 18px;
@@ -25,17 +25,16 @@
     border-style: none;
 }
 
-.logout:hover {
+.auth:hover {
     text-decoration: none;
     background-color: rgb(34, 34, 25);
-    color: white;
     font-size: 18px;
     margin: 8px;
     padding:2px;
     border-style: none;
 }
 
-.logout:visited {    
+.auth:visited {    
     background-color: rgb(34, 34, 25);
     color: white;
     font-size: 18px;
@@ -45,7 +44,7 @@
     text-decoration: none;
 }
 
-.adminHeader {
+.headerBtn {
     background-color: rgb(34, 34, 25);
     font-size: 18px;
     margin: 10px 5px;
@@ -53,7 +52,7 @@
     border-style: none;
 }
 
-.adminHeader:hover {
+.headerBtn:hover {
     margin: 8px;
     background-color: rgb(34, 34, 25);
 }

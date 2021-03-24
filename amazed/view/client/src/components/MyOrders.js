@@ -29,7 +29,7 @@ const MyOrders = (props) => {
         if(orders && orders.length > 0) {
            return orders.map((order)=>{
                 return (
-                    <div key={order.id}>
+                    <div key={order._id}>
                         <div className="panel panel-default">
                             <div className="panel-heading">
                                 <table className="table table-responsive">
@@ -73,9 +73,11 @@ const MyOrders = (props) => {
         }
         else{
             return(
-                <div className="emptyCart">
-                    <b>Oops...! Your Orders List Is Empty</b>
-                </div>
+                <center>
+                    <div className="emptyDisplay">
+                        <img src="/images/emptyOrder.png" alt="emptyOrder"></img>
+                    </div>
+                </center>
             )
         }
 

@@ -8,7 +8,7 @@ class SignIn extends React.Component {
     constructor(){
         super();
         this.state = {
-            passWord:'',
+            password:'',
             email:'',
             success:'',
             errors: {
@@ -26,32 +26,23 @@ class SignIn extends React.Component {
         })
     }
 
-    blurHandler = (name,value)=> {
-        console.log(name,value)
+    blurHandler = (name,value)=> {	
+        console.log(name,value)	
     }
 
     onSubmit = (event)=> {
-        // console.log("submitted")
-        event.preventDefault()
-        // console.log(this.state.email)
+        event.preventDefault();
+        
         const signInDetails = {
             email: this.state.email,
-            password: this.state.passWord
+            password: this.state.password
         }
-        // console.log(signInDetails)        
+              
         this.props.dispatch(signIn(signInDetails));
-
-        setTimeout(() => {
-            if(sessionStorage.getItem('invalidUser')) {
-                this.setState({
-                    errors: { ...this.state.errors, signinError: "Invalid email or password" }
-                })
-            }
-        }, 500);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        if(nextProps.signinStatus && this.state.email) {
+        if(nextProps.signinStatus.auth && this.state.email) {
             sessionStorage.removeItem('invalidUser');
             sessionStorage.setItem('token', nextProps.signinStatus.token);
 
@@ -65,6 +56,8 @@ class SignIn extends React.Component {
             }, 1000);
         }
         else {
+            sessionStorage.setItem('invalidUser', true);
+
             this.setState({
                 errors: { ...this.state.errors, signinError: "Invalid email or password" }
             })
@@ -93,7 +86,6 @@ SignIn.prototypes = {
 }
 
 const mapStateToProps = (state) => {
-    // console.log("state",state.signup.signinStatus)
     return{ 
         signinStatus: state.signup.signinStatus        
     }

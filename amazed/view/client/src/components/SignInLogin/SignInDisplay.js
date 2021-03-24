@@ -18,7 +18,8 @@ const SignInDisplay = (props) => {
                         name="email"
                         value={props.userDetails.email}
                         onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
-                        onBlur={(event) => props.blurHandler(event.target.name, event.target.value)}/>
+                        onBlur={(event) => props.blurHandler(event.target.name, event.target.value)}
+                    />
                     <p className="error-display">{props.userDetails.errors.userName}</p>
                 </div>
 
@@ -28,10 +29,11 @@ const SignInDisplay = (props) => {
                         type="password" 
                         className="form-control" 
                         placeholder="Enter password"
-                        name="passWord"
-                        value={props.userDetails.passWord}
+                        name="password"
+                        value={props.userDetails.password}
                         onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
-                        onBlur={(event) => props.blurHandler(event.target.name, event.target.value)}/>
+                        onBlur={(event) => props.blurHandler(event.target.name, event.target.value)}
+                    />
                     <p className="error-display">{props.userDetails.errors.userName}</p>
                 </div>
 
@@ -45,7 +47,7 @@ const SignInDisplay = (props) => {
 
                 <button type="submit" className="btn btn-primary btn-block"onClick={props.onSubmit}>Sign In</button>
 
-                <p className="forgot-password text-right">Not a member <Link to='/signup'>sign up?</Link>
+                <p className="forgot-password text-right">Not a member? <Link to='/signup' style={{color:"dodgerblue"}}>sign up</Link>
                 </p>    
             </form>
 

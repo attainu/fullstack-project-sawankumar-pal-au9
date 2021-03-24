@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { placeOrder } from '../actions/actionfile';
-import PlaceOderDisplay from '../components/PlaceOderDisplay';
+import PlaceOrderDisplay from '../components/PlaceOrderDisplay';
 import NotSignedIn from '../components/SignInLogin/NotSignedIn';
 
 let tdate = new Date();
@@ -30,6 +30,7 @@ class PlaceOrder extends React.Component {
             currentPrice: 1,
             quantity: 1,
             totalPrice: 1,
+            discountAmount:1,
             payment: 'COD',
             status: 'Order Placed',
             delivered: false,
@@ -55,6 +56,7 @@ class PlaceOrder extends React.Component {
         let productData = JSON.parse(sessionStorage.getItem('productData'))
         let userName = sessionStorage.getItem('userName')
         let userEmail = sessionStorage.getItem('loggedInEmail')
+        console.log(productData)
         
         this.setState({	
             ...this.state,	
@@ -155,6 +157,14 @@ class PlaceOrder extends React.Component {
             totalPrice: this.state.currentPrice * value
         })
     }
+    couponChangeHandler = (value) => {
+        this.setState({
+            ...this.state,
+            coupon: value,
+            discountAmount: this.state.currentPrice - ((this.state.currentPrice * value) / 100),
+            totalPrice: this.state.discountAmount
+        })
+    }
 
     submitHandler = () => {
         // console.log(this.state)
@@ -184,8 +194,7 @@ class PlaceOrder extends React.Component {
             status: this.state.status,
             delivered: this.state.delivered
         }
-        if (orderData.fname === '' || orderData.lname === ''
-            || orderData.email === '' || orderData.phone === ''
+        if (orderData.fname === '' || orderData.lname === '' || orderData.phone === ''
             || orderData.houseadd === '' || orderData.postCode === '') {
                 // alert("All fields are required.")
             this.setState({
@@ -219,7 +228,7 @@ class PlaceOrder extends React.Component {
         }
         else{
             return(
-                <PlaceOderDisplay
+                <PlaceOrderDisplay
                 userData = {this.state}
                 changeHandler = {this.changeHandler}
                 blurHandler = {this.blurHandler}
@@ -227,6 +236,7 @@ class PlaceOrder extends React.Component {
                 quantitychangeHandler = {this.quantitychangeHandler}
                 error = {this.state.errors.emptyFields}
                 success = {this.state.success}
+                couponChangeHandler = {this.couponChangeHandler}
             />
             )
         

@@ -9,8 +9,8 @@ const config = {
         GOOGLE_CLIENT_SECRET:'TUdcoqbcKJXPaLpBIv_ohLhW'
      },
      facebook:{
-      FACEBOOK_APP_ID:'737814703589543',
-      FACEBOOK_APP_SECRET:'6d230de76da408c8a8d98f762eddddaf'
+      FACEBOOK_APP_ID:'1339678449764671',
+      FACEBOOK_APP_SECRET:'eb3b5bced032f18576c194e4425d8970'
 
    }
 }
