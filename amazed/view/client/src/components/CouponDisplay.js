@@ -72,13 +72,9 @@ const CouponDisplay = (props) => {
     }
 
     const createCoupon = () => {
-        sessionStorage.setItem('createCoupon', true);
         props.history.push('/create_coupon');
     }
 
-    const renderSelect = () => {
-        props.toggleTabs()
-    }
 
     return (
         <React.Fragment>
@@ -88,7 +84,7 @@ const CouponDisplay = (props) => {
                     <button style={{float:"right", margin:"15px auto"}} onClick={createCoupon} className="btn btn-success">Create Coupon</button>
                 </div>
                 <div className="panel-body">
-                    <Tabs onSelect={renderSelect}>
+                    <Tabs onSelect={props.toggleTabs}>
                         <TabList>
                             <Tab style={{color:'red'}}>Active</Tab>
                             <Tab style={{color:'green'}}>Expired</Tab>

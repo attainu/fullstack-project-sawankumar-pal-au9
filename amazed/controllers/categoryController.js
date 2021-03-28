@@ -28,7 +28,6 @@ export const addNew = async (req, res) => {
 export const getCategories = async (req, res) => {
     try {
         const data = await Category.find({});
-
         return res.status(200).send(data);
     }
     catch(error) {

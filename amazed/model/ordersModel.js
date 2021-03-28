@@ -42,7 +42,10 @@ const OrdersSchema = mongoose.Schema({
         email:{
             type: String,
             required: true,
-        }
+        },
+        paymentMode:String,
+        transactionId:String,
+        transactionAmount:Number
     },
     productDetails:{
         asin:{
@@ -56,8 +59,7 @@ const OrdersSchema = mongoose.Schema({
         quantity:Number,
         totalPrice:Number,
         couponDiscount:Number,
-        grandTotal:Number,
-        paymentMode:String
+        grandTotal:Number
     },
     orderStatus:String,
     delivered:Boolean,

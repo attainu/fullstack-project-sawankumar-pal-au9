@@ -8,11 +8,11 @@ const GoogleStrategy = passportGoogle.OAuth2Strategy;
 export const G_Strategy = new GoogleStrategy({
     clientID: config.google.GOOGLE_CLIENT_ID,
     clientSecret: config.google.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:9800/auth/google/callback",
+    callbackURL: "/auth/google/callback",
     proxy: true
     },
     function(accessToken, refreshToken, profile, done) {
-        User.findOne({googleId: profile.id})
+        User.findOne({email: profile.emails[0].value})
             .then((user) => {
                 if(user) {
                     return done(null, user);
@@ -20,10 +20,9 @@ export const G_Strategy = new GoogleStrategy({
                     let user = {
                         name: profile.displayName,
                         email: profile.emails[0].value,
-                        role: "User",
-                        isActive: true,
+                        imageUrl: profile.photos[0].value,
                         provider: profile.provider,
-                        googleId: profile.id
+                        googleId: profile.id,
                     }
 
                     new User(user).save()
@@ -31,6 +30,6 @@ export const G_Strategy = new GoogleStrategy({
                             return done(null, user);
                         })
                 }
-            })
+        })
     }
 );

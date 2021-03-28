@@ -230,7 +230,7 @@ const PlaceOderDisplay = (props) => {
                                 <input 
                                     type="radio" 
                                     name="payment" 
-                                    value="COD" checked
+                                    value="COD" 
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)} />
                                 <label className="order-label1">Cash on Delivery</label>
                             </div>

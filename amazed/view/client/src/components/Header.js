@@ -123,9 +123,9 @@ class Header extends React.Component {
             loggedIn: false
         });
         sessionStorage.removeItem('token');
-        sessionStorage.removeItem('_rtk');
         sessionStorage.removeItem('userName');
         sessionStorage.removeItem('loggedInEmail');
+        sessionStorage.removeItem('userDetails');
         sessionStorage.removeItem('asin');
         sessionStorage.removeItem('clogin');
         sessionStorage.removeItem('login');

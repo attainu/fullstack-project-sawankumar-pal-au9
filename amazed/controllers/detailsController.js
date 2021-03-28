@@ -4,8 +4,8 @@ import Review from '../model/reviewModel.js';
 
 //Add product detail
 export const addNew = async (req, res) => {
-    const { asin, title, description, price, discount, images, dimensions, weight, manufacturer, model_number, sold_by, brand } = req.body;
-
+    const { asin, title, description,reviews, price, discount, images, dimensions, weight, manufacturer, model_number, sold_by, brand } = req.body;
+    const features = req.body.features.split(',');
     const date = new Date();
     const month = date.toLocaleString('default', { month: 'long' });
 
@@ -14,19 +14,9 @@ export const addNew = async (req, res) => {
             asin: asin,
             title: title,
             description: description,
-            feature_bullets: req.body.features.split(','),
-            reviews: {
-                rating: "0.0",
-            },
-            price: {
-                symbol: "₹",
-                currency: "INR",
-                current_price: (price - discount),
-                discounted: discount?true:false,
-                before_price: price,
-                savings_amount: discount,
-                savings_percent: (discount/price)*100
-            },
+            feature_bullets: features,
+            reviews: reviews,
+            price: price,
             total_images: images.length,
             images: images,
             product_information: {

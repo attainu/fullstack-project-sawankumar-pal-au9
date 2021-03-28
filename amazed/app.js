@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 import session, { Session } from 'express-session';
 import category from './routes/categoryRoutes.js';
 import products from './routes/productsRoutes.js';
@@ -11,6 +12,7 @@ import user from './routes/userRoutes.js';
 import subCategory from './routes/subCategoryRoutes.js';
 import coupons from './routes/couponsRoutes.js';
 import contacts from './routes/contactsRoutes.js';
+import transactions from './routes/transactionRoutes.js';
 import passport from 'passport';
 import google from './routes/googleRoutes.js';
 import facebook from './routes/facebookRouter.js';
@@ -62,16 +64,16 @@ app.use('/subcategories', subCategory);
 app.use('/auth/google', google);
 app.use('/auth/facebook', facebook);
 app.use('/contacts', contacts);
+app.use('/transaction',transactions)
 
-app.get("*", (req, res) => {
-  res.send("You've tried reaching a route that doesn't exist.")
-})
+// app.get("*", (req, res) => {
+//   res.send("You've tried reaching a route that doesn't exist.")
+// })
 
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('./view/client/build'));
-  const path = require('path');
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__diename, 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'view', 'client', 'build', 'index.html'))
   });
 }
 

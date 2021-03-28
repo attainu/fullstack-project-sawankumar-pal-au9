@@ -37,11 +37,15 @@ class ContactUs extends React.Component {
             
         })
     }
+
     submitHandler = (event) => {
         event.preventDefault();
-        // console.log(this.state)
-        this.props.dispatch(submitContacts(this.state.contactInfo));
-        this.props.history.push('/')
+        let info = this.state.contactInfo;
+
+        if(info.userName !== '' && info.userEmail !== '' && info.phone !== '' && info.comment !== '') {
+            this.props.dispatch(submitContacts(this.state.contactInfo));
+            this.props.history.push('/')
+        }
     }
 
     render() {

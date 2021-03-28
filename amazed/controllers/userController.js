@@ -44,6 +44,7 @@ export const register = (req,res) =>{
 
 export const login = (req,res) => {
     User.findOne({email:req.body.email}, (err,result) =>{
+        console.log("Inside login")
         if(err) return res.status(500).send({auth:false,"err":"Error while loging In"})
         if(!result) return res.status(500).send({auth:false,"err":"No User found,please resgister"})
         else{

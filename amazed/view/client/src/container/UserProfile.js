@@ -3,21 +3,24 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { updateProfile } from '../actions/actionfile';
 import Profile from '../components/Profile';
+
 class UserProfile extends React.Component{
     constructor(){
         super()
 
         this.state={
             userDetails:'',
+            image:'',
             successStatus:''
         }
     }
+
     componentDidMount(){
         this.setState({
-            userDetails:JSON.parse(sessionStorage.getItem('userDetails'))            
+            userDetails: JSON.parse(sessionStorage.getItem('userDetails'))            
         })
-
     }
+
     changeDetails = (name,value) => {
         this.setState({
             userDetails:{
@@ -27,40 +30,40 @@ class UserProfile extends React.Component{
             
         })
     }
+
+    changeImage = (name,value) => {
+        this.setState({
+            [name]:value
+            
+        })
+    }
+
     updateUser = async(event) => {
         event.preventDefault();
-        // // console.log(this.state.userDetails)
-       if(this.state.userDetails.image) {
+        if(this.state.userDetails.imageUrl !== this.state.image && event.target.name !== "closeModal") {
             const data = new FormData()	
-            data.append("file",this.state.userDetails.image)	
+            data.append("file",this.state.image)
             data.append("upload_preset","image-uploader")	
             data.append("clone_name","sunitta")	
-            // console.log(data)	
+            console.log(data)	
             try{	
                 const resp = await fetch('https://api.cloudinary.com/v1_1/sunitta/image/upload',
                 {	
                 method:'POST',	
                 body:data	
-            })	
-            const respdata = await resp.json();	
-            this.setState({
-                userDetails:{
-                    ...this.state.userDetails,
-                    imageUrl:respdata.url
-                }  
-            })
-        }
-        catch (err) {	
-            this.setState({error:"Invalid User details"})	
-        }
-    }
-        else{
-            this.setState({
-                userDetails:{
-                    ...this.state.userDetails,
-                    imageUrl:sessionStorage.getItem('userDetails').imageUrl
-                }
-            })
+                })
+                const respdata = await resp.json();	
+                this.setState({
+                    userDetails:{
+                        ...this.state.userDetails,
+                        imageUrl:respdata.url
+                    }  
+                })
+            }
+
+            catch (err) {	
+                this.setState({error:"Invalid User details"})	
+            }
         }
         	
         const userData = {
@@ -73,30 +76,39 @@ class UserProfile extends React.Component{
             imageUrl:this.state.userDetails.imageUrl,
             isActive:this.state.userDetails.isActive	
         }
-        this.props.dispatch(updateProfile(userData));
-        sessionStorage.setItem('userDetails',JSON.stringify(userData))
-        sessionStorage.setItem('userName',JSON.stringify(userData.name))
-        window.location.reload();
+
+        if(event.target.name !== "closeModal") {
+            sessionStorage.setItem('userDetails',JSON.stringify(userData))
+            sessionStorage.setItem('userName',JSON.stringify(userData.name))
+        }
+        
+        this.setState({
+            userDetails: JSON.parse(sessionStorage.getItem('userDetails'))
+        })
+        
+
+        this.props.dispatch(updateProfile(this.state.userDetails));
     }
    	
     render(){
         return(
             <Profile 
-            userDetails = {this.state.userDetails}
-            changeDetails = {this.changeDetails}
-            updateUser = {this.updateUser}
+                userDetails = {this.state.userDetails}
+                changeDetails = {this.changeDetails}
+                changeImage = {this.changeImage}
+                updateUser = {this.updateUser}
             />
         );
     }
 }
+
 UserProfile.prototypes = {
     dispatch: propTypes.func
 }
+
 const mapStateToProps = (state) => {
-    // console.log("from redux",state)
     return {
         successStatus: state.signup.updatedDetails
-
     }
 }
 export default connect(mapStateToProps)(UserProfile)

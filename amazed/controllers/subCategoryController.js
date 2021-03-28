@@ -11,3 +11,15 @@ export const getSubCategories = async (req, res) => {
         return res.status(409).send({"err": error.message});
     }
 }
+
+// Get all subcategories
+export const allSubcategories = async (req, res) => {
+    try {
+        const data = await subCategory.find({});
+
+        return res.status(200).send(data);
+    }
+    catch(error) {
+        return res.status(409).send({"err": error.message});
+    }
+}

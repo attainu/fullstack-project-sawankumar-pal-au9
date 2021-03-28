@@ -42,7 +42,7 @@ class SignIn extends React.Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        if(nextProps.signinStatus.auth && this.state.email) {
+        if(nextProps.signinStatus && nextProps.signinStatus.auth && this.state.email) {
             sessionStorage.removeItem('invalidUser');
             sessionStorage.setItem('token', nextProps.signinStatus.token);
 
@@ -52,7 +52,7 @@ class SignIn extends React.Component {
             })
             
             setTimeout(() => {
-                this.props.history.push('/user'); 
+                this.props.history.push('/getUser'); 
             }, 1000);
         }
         else {

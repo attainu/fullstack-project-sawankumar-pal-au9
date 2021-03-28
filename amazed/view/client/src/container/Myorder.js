@@ -41,8 +41,10 @@ class Myorder extends React.Component{
                         </center>
                     </div>
 
-                    <MyOrders orders = {this.props.orders}
-                    cancelOrder = {this.cancelOrder}/>
+                    <MyOrders 
+                        orders = {this.props.orders}
+                        cancelOrder = {this.cancelOrder}
+                    />
                 </div>
             </React.Fragment>
         

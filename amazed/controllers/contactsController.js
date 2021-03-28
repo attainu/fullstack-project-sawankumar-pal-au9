@@ -1,5 +1,4 @@
 import Contacts from '../model/contacts.js';
-// import mail from '../mail.js';
 import config from '../config.js';
 import nodemailer from 'nodemailer'; 
 

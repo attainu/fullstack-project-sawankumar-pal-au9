@@ -13,8 +13,9 @@ class GetUser extends React.Component {
         sessionStorage.setItem('loggedInEmail', nextProps.userDetails.email);
         sessionStorage.setItem('role', nextProps.userDetails.role);
         sessionStorage.setItem('userDetails', JSON.stringify(nextProps.userDetails));
-        this.validateDestination()        
+        this.validateDestination();      
     }
+    
     validateDestination = () => {
         if(sessionStorage.getItem('login') === 'false')  {
             this.props.history.push('/buynow'); 

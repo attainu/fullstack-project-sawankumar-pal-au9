@@ -17,7 +17,7 @@ googleRouter.get('/callback', passport.authenticate('google',
         const token = jwt.sign({id:req.user._id}, config.secret, {expiresIn:86400});
         const userName = req.user.name;
         const email = req.user.email;
-        res.redirect(`http://localhost:3000/?token=${token}&${userName}&${email}`);
+        res.redirect(`/?token=${token}&${userName}&${email}`);
 });
 
 export default googleRouter;

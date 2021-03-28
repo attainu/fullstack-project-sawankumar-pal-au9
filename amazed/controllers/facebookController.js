@@ -8,12 +8,12 @@ const FacebookStrategy = passportFacebook.Strategy;
 export const F_Strategy = new FacebookStrategy({
     clientID: config.facebook.FACEBOOK_APP_ID,
     clientSecret: config.facebook.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:9800/auth/facebook/callback",
+    callbackURL: "/auth/facebook/callback",
     proxy: true,
-    profileFields: ['id', 'email', 'gender', 'link', 'locale', 'displayName', 'timezone', 'updated_time', 'verified']
+    profileFields: ['id', 'email', 'gender', 'link', 'locale', 'displayName', 'photos']
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({facebookId: profile.id})
+    User.findOne({email: profile.emails[0].value})
       .then((user) => {
           if(user) {
             return done(null, user);
@@ -21,8 +21,7 @@ export const F_Strategy = new FacebookStrategy({
               let user = {
                   name: profile.displayName,
                   email: profile.emails[0].value,
-                  role: "User",
-                  isActive: true,
+                  imageUrl: profile.photos[0].value,
                   provider: profile.provider,
                   facebookId: profile.id
               }
@@ -31,6 +30,6 @@ export const F_Strategy = new FacebookStrategy({
                   return done(null, user);
                 })
           }
-      })
+    })
   }
 );

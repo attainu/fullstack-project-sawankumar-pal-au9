@@ -1,0 +1,33 @@
+.content-box{
+    background-image: linear-gradient(to right top, #b7d1eb, #b9cce0, #91b7df, #67a3de, #298edc);
+    border-radius: 10px;
+    box-shadow: 4px 4px 12px grey;
+    padding:10px;
+    width:70rem;
+    height:auto;
+    margin:10rem;
+}
+.tick-mark img{
+    margin-left: 20rem;
+}
+
+.success,.payment-info{
+    margin-left: 12rem;    
+}
+.payment-details{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: brown;
+}
+.payment-buttons{
+    display: flex;
+}
+.payment-buttons1 {
+    margin-left: 15rem; 
+    padding: 5px;
+    font-size: 18px;
+}
+.payment-buttons2 {
+    margin-left: 5rem; 
+    padding: 5px;
+    font-size: 18px;
+}

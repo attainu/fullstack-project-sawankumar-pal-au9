@@ -34,7 +34,7 @@ class CreateCoupon extends React.Component {
         console.log(this.state)
         const { couponName, category, couponCode, discountPercent, expiryDate } = this.state;
         if(couponName && category && couponCode && discountPercent && expiryDate) {
-            console.log(this.state)
+            // console.log(this.state)
             this.props.dispatch(createCoupon(this.state));
 
             setTimeout(() => {

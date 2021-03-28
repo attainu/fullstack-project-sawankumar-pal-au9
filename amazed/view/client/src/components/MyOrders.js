@@ -51,7 +51,7 @@ const MyOrders = (props) => {
                                             <td>{order.orderDetails.phone}</td>
                                             <td>{order.productDetails.paymentMode}</td>
                                             <td>{order.orderStatus}</td>	
-                                            {renderOrderBtn(order.orderDetails.orderStatus, order._id)}   
+                                            {renderOrderBtn(order.orderStatus, order._id)}   
                                         </tr>
                                     </tbody>
                                     

@@ -17,7 +17,10 @@ export const newOrder = async(req,res) => {
                 country : req.body.country,
                 postCode : req.body.postCode,
                 phone : req.body.phone,
-                email : req.body.email
+                email : req.body.email,
+                paymentMode : req.body.payment,
+                transactionId:req.body.transactionid,
+                transactionAmount:req.body.transactionamount
             },
             productDetails : {
                 asin : req.body.asin,
@@ -28,8 +31,8 @@ export const newOrder = async(req,res) => {
                 quantity : req.body.quantity,
                 totalPrice : req.body.totalPrice,
                 couponDiscount: req.body.couponDiscount,
-                grandTotal: req.body.grandTotal,
-                paymentMode : req.body.payment
+                grandTotal: req.body.grandTotal
+                
             },
             orderStatus : req.body.status,
             delivered : req.body.delivered,
@@ -65,8 +68,6 @@ export const allOrders = async(req,res) => {
 
 // get order by id
 export const ordersById = async(req,res) => {
-    const _id = req.params.id
-    console.log(_id)
     try{
         
         const result = await Orders.findById(req.params.id)
@@ -98,16 +99,20 @@ export const ordersByEmail = async(req,res) => {
 //update order
 export const updateOrder = async (req, res) => {
     const user = req.body;
-
+    
     try {
         const _id = req.params.id
-        const updaterequired = await Orders.findByIdAndUpdate(_id, {orderStatus:req.body.status});
 
-        res.status(204).send({"sucess":"Order is updated successfully"});
+        await Orders.findByIdAndUpdate(_id, {
+            "delivered":req.body.delivered, 
+            "orderStatus":req.body.orderStatus
+        });
+
+        return res.status(200).send({"success":"Order is updated successfully"});
     }
 
     catch (error) {
-        res.status(404).send({"err":error.message})
+        return res.status(404).send({"err":error.message})
     }
 };
 
