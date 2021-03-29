@@ -5,6 +5,7 @@ import { userDetails } from '../../actions/actionfile';
 class GetUser extends React.Component {
     componentDidMount() {
         const token = sessionStorage.getItem('token');
+        console.log("token", token)
         this.props.dispatch(userDetails(token))
     }
 
@@ -12,8 +13,10 @@ class GetUser extends React.Component {
         sessionStorage.setItem('userName', nextProps.userDetails.name);
         sessionStorage.setItem('loggedInEmail', nextProps.userDetails.email);
         sessionStorage.setItem('role', nextProps.userDetails.role);
-        this.validateDestination()        
+        sessionStorage.setItem('userDetails', JSON.stringify(nextProps.userDetails));
+        this.validateDestination();      
     }
+    
     validateDestination = () => {
         if(sessionStorage.getItem('login') === 'false')  {
             this.props.history.push('/buynow'); 

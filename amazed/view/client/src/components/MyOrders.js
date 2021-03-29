@@ -41,7 +41,6 @@ const MyOrders = (props) => {
                                             <th>PAYMENT MODE</th>
                                             <th>ORDER STATUS</th>
                                             <th>CANCEL / DELETE</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,20 +48,20 @@ const MyOrders = (props) => {
                                             <td>{order.date}</td>
                                             <td>{order.orderDetails.firstName} {order.orderDetails.lastName}</td>
                                             <td>{order.orderDetails.phone}</td>
-                                            <td>{order.productDetails.paymentMode}</td>
+                                            <td>{order.orderDetails.paymentMode}</td>
                                             <td>{order.orderStatus}</td>	
-                                            {renderOrderBtn(order.orderDetails.orderStatus, order._id)}   
+                                            {renderOrderBtn(order.orderStatus, order._id)}   
                                         </tr>
                                     </tbody>
                                     
-                                </table>
-                                
+                                </table>  
                             </div>
                             <div className="panel-body">
                                 <Link to={`/detail/${order.productDetails.asin}`} style={{textDecoration:"none" ,color:"#67AFCB"}}><h4>{order.productDetails.productTitle}</h4></Link>
-                                <p style={{display:"inline-block", margin:"20px"}}>Price: {order.productDetails.currentPrice}</p>
+                                <p style={{display:"inline-block", margin:"20px"}}>Price: {order.productDetails.totalPrice}</p>
                                 <p style={{display:"inline-block", margin:"20px"}}>Quantity: {order.productDetails.quantity}</p>
-                                <p style={{display:"inline-block", margin:"20px"}}>Total Price: {order.productDetails.totalPrice}</p>
+                                <p style={{display:"inline-block", margin:"20px"}}>Coupon Discount: {order.productDetails.couponDiscount || 0}</p>
+                                <p style={{display:"inline-block", margin:"20px"}}>Total Price: {order.productDetails.grandTotal}</p>
                             </div>
                         </div>
                         <hr/>
@@ -73,15 +72,17 @@ const MyOrders = (props) => {
         }
         else{
             return(
-                <div className="emptyCart">
-                    <b>Oops...! Your Orders List Is Empty</b>
-                </div>
+                <center>
+                    <div className="emptyDisplay">
+                        <img src="/images/emptyOrder.png" alt="emptyOrder"></img>
+                    </div>
+                </center>
             )
         }
 
     }
     return(
-        <div>
+        <div style={{overflowX: "scroll"}}>
             {displayRender(props)}
         </div>
     );

@@ -4,8 +4,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../model/userModel.js';
 import config from '../config.js';
+import { checkEmail, checkNumber, checkString } from '../utils/validator.js';
 
 export const getAll = (req,res) => {
+
     User.find({}, (err,result) => {
         if(err) return res.status(500).send("Error")
         res.status(200).send(result)
@@ -16,7 +18,17 @@ export const register = (req,res) =>{
     // console.log(req.body)
     const hashedPass = bcrypt.hashSync(req.body.password,8)
     const status = req.body.isActive;
-    // console.log(">>>>>>>>>>",status)
+
+    const IsValidUserEmail = checkEmail(req.body.email);
+    if(!IsValidUserEmail){
+        res.send("Invalid Email")
+    }
+
+    const IsValidPhone = checkNumber(req.body.phone);
+    if(!IsValidPhone){
+        res.send("Invalid Phone")
+    }
+
     let toBool = (status) => {
         if(status === 'true'){
             return status= true
@@ -31,7 +43,10 @@ export const register = (req,res) =>{
         email:req.body.email,
         password:hashedPass,
         role:req.body.role?req.body.role:'User',
-        isActive: status
+        isActive: status?status:true,	
+        imageUrl: req.body.imageUrl? req.body.imageUrl:'https://img.icons8.com/bubbles/100/000000/user.png',	
+        phone:req.body.phone,	
+        location:req.body.location
 
     }, (err,result) => {
         if(err) return res.status(500),send('Error')
@@ -41,6 +56,7 @@ export const register = (req,res) =>{
 
 export const login = (req,res) => {
     User.findOne({email:req.body.email}, (err,result) =>{
+        console.log("Inside login")
         if(err) return res.status(500).send({auth:false,"err":"Error while loging In"})
         if(!result) return res.status(500).send({auth:false,"err":"No User found,please resgister"})
         else{
@@ -69,7 +85,7 @@ export const profile = (req,res) =>{
 
 export const profileById = (req,res) =>{
     if(!req.session.user) {
-        return res.redirect('/?errmsg=No Session Found! Please Login Again')
+        return res.status(400).send('No Session Found! Please Login Again')
     }
     const Id = req.params.id
     User.findById(Id, (err,result) => {
@@ -81,7 +97,7 @@ export const profileById = (req,res) =>{
 
 export const updateUser = (req,res) => {
     if(!req.session.user) {
-        return res.redirect('/?errmsg=No Session Found! Please Login Again')
+        return res.status(400).send('No Session Found! Please Login Again')
     }
     const Id = req.params.id
     const status = req.body.isActive;
@@ -94,25 +110,28 @@ export const updateUser = (req,res) => {
          }
 
     }
-    // console.log("nesstatus",status)
     User.updateOne({_id:Id},
         {
             $set:{
                 name: req.body.name,
                 email: req.body.email,
                 role: req.body.role ?req.body.role:'User',
-                isActive: status?status:true
+                isActive: status?status:true,	
+                imageUrl: req.body.imageUrl? req.body.imageUrl:'https://img.icons8.com/bubbles/100/000000/user.png'	,	
+                phone:req.body.phone,	
+                location:req.body.location,
             }
         }
         , (err,result) => {
         if(err) return res.status(500).send({"err":"Error while updating the user"})
-        res.status(200).send("Data is updated")
+        res.status(200).send(result)
     })
 }
 
 export const updateUserToAdmin = (req,res) => {
-    if(!req.session.user) {
-        return res.redirect('/?errmsg=No Session Found! Please Login Again')
+
+    if(!req.session.user && req.session.user.role !=='Admin') {
+        return res.status(400).send('No Session Found! Please Login Again')
     }
     const Id = req.params.id
     User.updateOne({_id:Id},{role:'Admin'}, (err,result) => {
@@ -122,8 +141,9 @@ export const updateUserToAdmin = (req,res) => {
 }
 
 export const deleteUser = (req,res) => {
-    if(!req.session.user) {
-        return res.redirect('/?errmsg=No Session Found! Please Login Again')
+
+    if(!req.session.user && req.session.user.role !=='Admin') {
+        return res.status(400).send('No Session Found! Please Login Again')
     }
     const Id = req.params.id
     User.deleteOne({_id:Id},(err,result) =>{

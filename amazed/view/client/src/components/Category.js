@@ -23,7 +23,15 @@ const Category = (props) => {
                         <img src={`${item.images[2]}`} alt="img3"/>
                         <img src={`${item.images[3]}`} alt="img4"/>
                         <div>
-                            <Link to={`/search?category=${item.category}`} style={{textDecoration:'none'}}><h4 className="link">SEE MORE</h4></Link>
+                            <Link 
+                                to={`/search?category=${item.category}`} 
+                                style={{textDecoration:'none'}}
+                                onClick={() => {
+                                    sessionStorage.setItem('categoryNumber', item.categoryNumber)
+                                }}
+                            >
+                                <h4 className="link">SEE MORE</h4>
+                            </Link>
                         </div>
                     </div>
                 );
@@ -69,7 +77,11 @@ const Category = (props) => {
                 </Slide>
             </div>
 
-            {/* <hr/> */}
+            <div className="categoryHead">
+                <h2>Categories</h2>
+            </div>
+
+            <hr/>
 
             <div className="container home-container">
                 {/* <h2 className="homeTitle">Categories</h2> */}

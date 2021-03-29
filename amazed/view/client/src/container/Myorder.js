@@ -35,14 +35,18 @@ class Myorder extends React.Component{
                 <div className="container">
                     <h2 className="cartHeading">Orders List</h2>
 
+                    <hr/>
+
                     <div style={{fontSize:"20px",color:"green"}}>
                         <center>
                             <span id="error"></span>
                         </center>
                     </div>
 
-                    <MyOrders orders = {this.props.orders}
-                    cancelOrder = {this.cancelOrder}/>
+                    <MyOrders 
+                        orders = {this.props.orders}
+                        cancelOrder = {this.cancelOrder}
+                    />
                 </div>
             </React.Fragment>
         

@@ -5,11 +5,11 @@ import 'react-tabs/style/react-tabs.css';
 const DashboardDisplay = (props) => {
 
     const renderDelivered = (status) => {
-        if(status==='True'){
-            return (<td style={{color:'green'}}>{status}</td>);
+        if(status){
+            return (<td style={{color:'green'}}>True</td>);
         }
         else{
-            return (<td style={{color:'red'}}>{status}</td>);
+            return (<td style={{color:'red'}}>False</td>);
         }
         
     }
@@ -17,13 +17,13 @@ const DashboardDisplay = (props) => {
     const changeStatus = (e) => {
         const bodyData = JSON.parse(e.target.value);
 
-        if(bodyData.delivered === 'False') {
-            bodyData.delivered = 'True';
-            bodyData.status = 'Product Delivered'
-            fetch(`http://localhost:8900/order/${bodyData.id}`,
-            {method:'PUT',
+        if(!bodyData.delivered) {
+            bodyData.delivered = true;
+            bodyData.orderStatus = 'Product Delivered'
+            fetch(`/orders/${bodyData.id}`,
+            {method:'PATCH',
             headers: {
-                'Accepct':'application/json',
+                'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify(bodyData)
@@ -34,11 +34,12 @@ const DashboardDisplay = (props) => {
             })
         }
         else{
-            bodyData.delivered = 'False';
-            fetch(`http://localhost:8900/order/${bodyData.id}`,
-            {method:'PUT',
+            bodyData.delivered = false;
+            bodyData.orderStatus = 'Order Placed';
+            fetch(`/orders/${bodyData.id}`,
+            {method:'PATCH',
             headers: {
-                'Accepct':'application/json',
+                'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             body: JSON.stringify(bodyData)
@@ -52,17 +53,20 @@ const DashboardDisplay = (props) => {
 
     const renderFilterData = (item) => {
         return (
-            <tr key={item.id}>
-                <td>{`cf3fc8ac${item.id}`}</td>
+            <tr key={item._id}>
+                <td>{item._id}</td>
                 <td>{item.date}</td>
-                <td>{`${item.fname} ${item.lname}`}</td>
-                <td>{`${item.houseadd}, ${item.apartment}, ${item.city}, ${item.state} ${item.postCode}`}</td>
-                <td>{`${item.phone}/ ${item.email}`}</td>
-                <td>{item.quantity}</td>
-                <td>{item.totalPrice}</td>
-                <td>{item.productTitle}</td>
-                <td>{item.payment}</td>
-                <td><button onClick={changeStatus} className="btn btn-primary" value={JSON.stringify(item)}>Change</button></td>
+                <td>{`${item.orderDetails.firstName} ${item.orderDetails.lastName}`}</td>
+                <td>{`${item.orderDetails.houseAddress}, ${item.orderDetails.apartment}, ${item.city}, ${item.orderDetails.state} ${item.orderDetails.postCode}`}</td>
+                <td>{`${item.orderDetails.phone}/ ${item.orderDetails.email}`}</td>
+                <td>{item.productDetails.quantity}</td>
+                <td>{item.productDetails.grandTotal}</td>
+                <td>{item.productDetails.productTitle}</td>
+                <td>{item.productDetails.paymentMode}</td>
+                <td><button onClick={changeStatus} className="btn btn-primary" value={JSON.stringify({id:item._id, delivered:item.delivered, orderStatus:item.orderStatus})}>
+                        Change
+                    </button>
+                </td>
                 {renderDelivered(item.delivered)}
             </tr>
         );
@@ -90,7 +94,7 @@ const DashboardDisplay = (props) => {
         if(data.allOrders) {
             if(data.allOrders.length > 0) {
                 const filterData = data.allOrders.filter((item) => {
-                    return item.delivered === 'False'
+                    return !item.delivered
                 });
 
                 if(filterData.length > 0){
@@ -108,11 +112,11 @@ const DashboardDisplay = (props) => {
         }
     }
 
-    const renderBody2 = (data) => {
+    const renderBody2 = (data) => {     
         if(data.allOrders) {
             if(data.allOrders.length > 0) {
                 const filterData = data.allOrders.filter((item) => {
-                    return item.delivered === 'True'
+                    return item.delivered
                 });
 
                 if(filterData.length > 0){
@@ -149,7 +153,7 @@ const DashboardDisplay = (props) => {
                         <Tab style={{color:'green'}}>Completed</Tab>
                         </TabList>
 
-                        <TabPanel>
+                        <TabPanel style={{overflowX: "scroll"}}>
                             <table className="table table-responsive">
                                 <thead style={{background:"orange"}}>
                                     <tr>
@@ -172,7 +176,8 @@ const DashboardDisplay = (props) => {
                                 </tbody>
                             </table>
                         </TabPanel>
-                        <TabPanel>
+                        
+                        <TabPanel style={{overflowX: "scroll"}}>
                             <table className="table table-responsive">
                                 <thead style={{background:"orange"}}>
                                     <tr>

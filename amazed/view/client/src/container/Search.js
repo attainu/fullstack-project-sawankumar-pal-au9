@@ -54,19 +54,18 @@ class Search extends React.Component {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
         return (
-            <div>
-                <div className="row">
-                    <div className="col col-md-3">
-                        <Filter 
-                            fData={(filteredData) => {this.filter(filteredData)}} 
-                            sData={this.props.searchData}
-                        />
-                    </div>
-                    <div className="col col-md-9">
-                        <SearchDisplay 
-                            sData={this.state.data.SearchResult}
-                        />
-                    </div>
+            <div className="mainSearch">
+                <div className="mainFilter">
+                    <Filter 
+                        fData={(filteredData) => {this.filter(filteredData)}} 
+                        sData={this.props.searchData}
+                    />
+                </div>
+
+                <div className="subMainSearch">
+                    <SearchDisplay 
+                        sData={this.state.data.SearchResult}
+                    />
                 </div>
             </div>
         );

@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 
-* {
-  box-sizing: border-box;
-}
 .main-continer {
   background: white;
   min-height: 100vh;
@@ -11,12 +8,12 @@
   font-family: 'Fira Sans', sans-serif;
 }
 .form-class {
+  padding: 1%;
   width:50%;
   height: 90%;
-  background-color: rgb(207, 231, 238);
+  background-color: #E0F4FF;
   box-shadow: 0 4px 8px 0 rgb(228, 216, 196), 0 6px 20px 0 rgb(204, 200, 200);
-  margin-left: 20%;
-  margin-top: 5%;
+  margin: 5% auto;
   border-radius: 15px;
 }
 .font-size {
@@ -34,4 +31,36 @@
   color: red;
   font-size: smaller;
   
+}
+
+.authBtn1 {
+  background-color: white;
+  font-weight: bolder;
+  text-align: center;
+  width: 55%;
+}
+
+.authBtn1 > a {
+  text-decoration: none;
+}
+
+.authBtn2 {
+  color: white;
+  font-weight: bolder;
+  text-align: center;
+  width: 55%;
+}
+
+@media only screen and (max-width: 640px) {
+  .form-class {
+    width: 90%;
+  }
+
+  .authBtn1 {
+    width: 55%;
+  }
+
+  .authBtn2 {
+    width: 55%;
+  }
 }

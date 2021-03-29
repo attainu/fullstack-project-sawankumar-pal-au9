@@ -16,7 +16,7 @@
     padding:8px;
 }
 
-.logout {
+.auth {
     background-color: rgb(34, 34, 25);
     color: white;
     font-size: 18px;
@@ -25,17 +25,16 @@
     border-style: none;
 }
 
-.logout:hover {
+.auth:hover {
     text-decoration: none;
     background-color: rgb(34, 34, 25);
-    color: white;
     font-size: 18px;
     margin: 8px;
     padding:2px;
     border-style: none;
 }
 
-.logout:visited {    
+.auth:visited {    
     background-color: rgb(34, 34, 25);
     color: white;
     font-size: 18px;
@@ -45,7 +44,7 @@
     text-decoration: none;
 }
 
-.adminHeader {
+.headerBtn {
     background-color: rgb(34, 34, 25);
     font-size: 18px;
     margin: 10px 5px;
@@ -53,7 +52,7 @@
     border-style: none;
 }
 
-.adminHeader:hover {
+.headerBtn:hover {
     margin: 8px;
     background-color: rgb(34, 34, 25);
 }
@@ -71,8 +70,53 @@
     padding: 0 10px;
 }
 
+.navHeader {
+    width: 100%;
+}
+
+.toggleBtn {
+    float: right;
+    margin: 8px;
+    font-size: 20px;
+}
+
+.navTogBtn {
+    background-color: #9BE1FB;
+    border-radius: 5px;
+    width: 4rem;
+    color: white;
+}
+
+#navBtns {
+    position: absolute;
+    right: 7rem;
+    margin-right: 5px;
+    display: none;
+}
+
+#signinBtn {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    margin-top: 5px;
+}
+
 @media only screen and (max-width: 1000px) {
     .search {
         margin-left: 160px;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+
+    #navBtns {
+        position: relative;
+        right: 0;
+        float: right;
+    }
+
+    .search {
+        position: relative;
+        right: 8rem;
     }
 }

@@ -4,7 +4,10 @@ const category = (state={}, action) => {
             return { ...state, Categories: action.payload }
 
         case 'SUB_CATEGORIES':
-            return { ...state, SubCategories: action.payload}
+            return { ...state, SubCategories: action.payload }
+
+        case 'ALL_SUB_CATEGORIES':
+            return { ...state, AllSubCategories: action.payload }
         
         default:
             return state

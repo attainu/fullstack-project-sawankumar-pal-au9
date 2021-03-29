@@ -5,8 +5,11 @@ const CouponSchema = mongoose.Schema({
     couponCode:String,     
     createdDate:String,
     category:String,
-    discount: String,
-    expiryDate:String
-})
+    categoryNumber:Number,
+    discountPercent: String,
+    expiryDate:String,
+    usedBy: [{ type:String }]
+});
+
 const coupons = new mongoose.model('coupons',CouponSchema);
 export default coupons;

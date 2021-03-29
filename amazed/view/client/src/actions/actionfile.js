@@ -1,15 +1,15 @@
-const category_url = 'http://localhost:9800/categories';
-const search_url ='http://localhost:9800/products/category';
-const detail_url = 'http://localhost:9800/details';
-const review_url = 'http://localhost:9800/reviews';
-const order_url = 'http://localhost:9800/orders';
-const cart_url = 'http://localhost:9800/cart';
-const reg_url = 'http://localhost:9800/users/register';
-const login_url = 'http://localhost:9800/users/login';
-const userinfo_url ="http://localhost:9800/users/profile";
-const getAllUser_url = "http://localhost:9800/users";
-const subcategory_url = 'http://localhost:9800/subcategories';
+const category_url = '/categories';
+const product_url = '/products';
+const detail_url = '/details';
+const review_url = `/reviews`;
+const order_url = '/orders';
+const cart_url = '/cart';
+const subcategory_url = '/subcategories';
+const coupon_url = '/coupons';
+const contact_url = '/contacts';
+const user_url = '/users';
 
+//get all categories
 export function categories(){
     const output = fetch(category_url, {method:'GET'})
     .then((res) => res.json())
@@ -20,6 +20,18 @@ export function categories(){
     }
 }
 
+//get all subCategories
+export function allSubCategories(){
+    const output = fetch(subcategory_url, {method:'GET'})
+    .then((res) => res.json())
+
+    return {
+        type: 'ALL_SUB_CATEGORIES',
+        payload: output
+    }
+}
+
+//get subCategories
 export function subCategories(categoryNumber){
     const output = fetch(`${subcategory_url}/${categoryNumber}`, {method:'GET'})
     .then((res) => res.json())
@@ -30,8 +42,21 @@ export function subCategories(categoryNumber){
     }
 }
 
+//get all products
+export function allProducts(){
+    const output = fetch(`${product_url}`, 
+        {method:'GET'})
+    .then(res => res.json())
+
+    return {
+        type: 'ALL_PRODUCTS',
+        payload: output
+    }
+}
+
+//get products based on conditions
 export function search(query){
-    const output = fetch(`${search_url}/${query}`, {
+    const output = fetch(`${product_url}/category/${query}`, {
         method:'GET',
     })
     .then((res) => res.json())
@@ -42,6 +67,37 @@ export function search(query){
     }
 }
 
+//create product 
+export function createProduct(productData){
+    const output = fetch(product_url,{
+        method:'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(productData)
+    })
+    .then(res => res.json())
+
+    return {
+        type: 'CREATE_PRODUCT',
+        payload: output
+    }
+}
+
+//delete product 
+export function deleteProduct(id){
+    const output = fetch(`${product_url}/${id}`, 
+        {method:'DELETE'})
+    .then(res => res.json())
+
+    return {
+        type: 'DELETE_PRODUCT',
+        payload: output
+    }
+}
+
+//get product details based on asin
 export function detail(asin){
     const output = fetch(`${detail_url}/${asin}`, {
         method:'GET',
@@ -54,7 +110,7 @@ export function detail(asin){
     }
 }
 
-
+//get product reviews based on asin
 export function review(asin){
     const output = fetch(`${review_url}/${asin}`, {
         method:'GET',
@@ -67,7 +123,7 @@ export function review(asin){
     }
 }
 
-
+//posting order data
 export function placeOrder(orderDetails){
     const output = fetch(order_url, {
         method:'POST',
@@ -85,18 +141,9 @@ export function placeOrder(orderDetails){
     }
 }
 
-export function getAllUsers() {
-    const output = fetch(getAllUser_url,{method:'GET'})
-    .then((res) => res.json())
-
-    return {
-        type: 'GET_ALL_USERS',
-        payload: output
-    }   
-}
-
+//posting signup data
 export function signUp(signUpDetails) {
-    const output = fetch(reg_url, {
+    const output = fetch(`${user_url}/register`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -113,8 +160,9 @@ export function signUp(signUpDetails) {
     }   
 }
 
+//posting sigin details to get token
 export function signIn(signInDetails) {
-    const output = fetch(login_url,{
+    const output = fetch(`${user_url}/login`,{
         method:'POST',
         headers:{
             'Accept':'application/json',
@@ -122,10 +170,9 @@ export function signIn(signInDetails) {
         },
         body: JSON.stringify(signInDetails)
         })
-    .then(resp=>resp.json())
+    .then(res => res.json())
     .catch((err) => {
-        console.log(err)
-        sessionStorage.setItem('invalidUser', 'Invalid email or password');
+        console.log(err);
     })
     return {
         type: 'SIGNIN',
@@ -133,8 +180,9 @@ export function signIn(signInDetails) {
     }
 }
 
+//get user details
 export function userDetails(token) {
-    const output = fetch(userinfo_url,{
+    const output = fetch(`${user_url}/profile`,{
         method:'GET',
         headers:{
             'x-access-token':token
@@ -151,6 +199,36 @@ export function userDetails(token) {
     }
 }
 
+//get all users
+export function getAllUsers() {
+    const output = fetch(user_url,{method:'GET'})
+    .then((res) => res.json())
+
+    return {
+        type: 'GET_ALL_USERS',
+        payload: output
+    }   
+}
+
+//update user profile
+export function updateProfile(userDetails){	
+    const id = userDetails._id
+    const output = fetch(`${user_url}/${id}`, {	
+        method:'PUT',	
+        headers: {	
+                    'Accept':'application/json',	
+                    'Content-Type':'application/json'	
+                },	
+                body: JSON.stringify(userDetails)	
+                })	
+    .then((res) => res.json())	
+    return {	
+        type: 'UPDATE_USER',		
+        payload: "successfully updated the profile"	
+    }	
+}
+
+//get all orders placed by users
 export function Admin(){
     const output = fetch(`${order_url}/all`, {method:'GET'})
     .then((res) => res.json())
@@ -161,6 +239,7 @@ export function Admin(){
     }
 }
 
+//add product to cart
 export function addToCart(cartData) {
     fetch(cart_url, {
         method: 'POST',
@@ -178,6 +257,7 @@ export function addToCart(cartData) {
     }   
 }
 
+//get product from cart
 export function getFromCart(query){
     const output = fetch(`${cart_url}?email=${query}`, 
         {method:'GET'})
@@ -190,6 +270,7 @@ export function getFromCart(query){
     }
 }
 
+//remove product from cart
 export function removeFromCart(id){
     fetch(`${cart_url}/${id}`, {
         method:'DELETE',
@@ -207,6 +288,7 @@ export function removeFromCart(id){
     }
 }
 
+//get all orders of paricular user
 export function GetMyOrders(query){
     const output = fetch(`${order_url}/?${query}`, 
         {method:'GET'})
@@ -219,6 +301,7 @@ export function GetMyOrders(query){
     }
 }
 
+//cancel or delete order from users order list
 export function cancelOrder(id){
     fetch(`${order_url}/${id}`, {
         method:'DELETE',
@@ -234,4 +317,109 @@ export function cancelOrder(id){
         type: 'CANCEL_ORDER',
         payload: 'Order is cancelled'
     }
+}
+
+//get coupons based on category
+export function coupon(asin){	
+    const output = fetch(`${coupon_url}/category?${asin}`, {	
+        method:'GET',	
+    })	
+    .then((res) => res.json())	
+    return {	
+        type: 'COUPON',	
+        payload: output	
+    }	
+}
+
+//create coupon
+export function createCoupon(couponData){
+    const output = fetch(coupon_url,{
+        method:'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(couponData)
+    })
+    .then(res => res.json())
+
+    return {
+        type: 'CREATE_COUPON',
+        payload: output
+    }
+}
+
+//get all coupons 
+export function getAllCoupons(){
+    const output = fetch(coupon_url, 
+        {method:'GET'})
+    .then(res => res.json())
+    .catch(err => console.log(err))
+
+    return {
+        type: 'ALL_COUPONS',
+        payload: output
+    }
+}
+
+//get coupons based on categoryNumber
+export function getCouponByCategory(number){
+    const output = fetch(`${coupon_url}/category/?categoryNumber=${number}`,
+        {method:'GET'})
+    .then(res => res.json())
+    .catch(err => console.log(err))
+
+    return {
+        type: 'COUPON_BY_CATEGORY',
+        payload: output
+    }
+}
+
+//delete coupon
+export function deleteCoupon(id){
+    const output = fetch(`${coupon_url}/${id}`, 
+        {method:'DELETE'})
+    .then(res => res.json())
+    .catch(err => console.log(err))
+
+    return {
+        type: 'DELETE_COUPON',
+        payload: output
+    }
+}
+
+//update coupon by adding user email
+export function updateCoupon(id, data){
+    const output = fetch(`${coupon_url}/${id}`,{ 
+        method:'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .catch(err => console.log(err))
+
+    return {
+        type: 'UPDATE_COUPON',
+        payload: output
+    }
+}
+
+//post contact details
+export function submitContacts(contactDetails){	
+    const output = fetch(contact_url, {	
+        method:'POST',	
+        headers: {	
+                    'Accept':'application/json',	
+                    'Content-Type':'application/json'	
+                },	
+                body: JSON.stringify(contactDetails)	
+                })	
+    .then((res) => res.json())	
+    return {	
+        type: 'CONTACT',		
+        payload: output	
+    }	
 }

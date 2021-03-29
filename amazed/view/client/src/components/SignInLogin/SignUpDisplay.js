@@ -30,7 +30,7 @@ const SignUpDisplay = (props) => {
                         />
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-block"
+                    <button type="submit" className="btn btn-warning btn-block"
                     onClick= {props.submitHandler}>Create</button>
                 </>
             );
@@ -38,10 +38,10 @@ const SignUpDisplay = (props) => {
         else {
             return (
                 <>
-                    <button type="submit" className="btn btn-primary btn-block"
+                    <button type="submit" className="btn btn-warning btn-block"
                     onClick= {props.submitHandler}>Sign Up</button>
                     <p className="forgot-password text-right">
-                        Already registered <Link to='/signin'>sign in?</Link>
+                        Already registered? <Link to='/signin'  style={{color:"dodgerblue"}}>sign in</Link>
                     </p>
                 </>
             );
@@ -51,7 +51,7 @@ const SignUpDisplay = (props) => {
     return(
         <div className="main-continer">
             <div className="form-class">
-            <form className="form-data">
+            <form className="form-data" enctype="multipart/form-data">
                 {renderHeading()}
 
                 <div className="form-group">
@@ -59,7 +59,7 @@ const SignUpDisplay = (props) => {
                     <input 
                         type="text" 
                         className="form-control" 
-                        placeholder="User name"
+                        placeholder="Enter User name"
                         autoComplete="new-off" 
                         name="userName"
                         value={props.signUpDetails.userName}
@@ -89,12 +89,54 @@ const SignUpDisplay = (props) => {
                         className="form-control" 
                         placeholder="Enter password"
                         autoComplete="new-off" 
-                        name="passWord"
+                        name="password"
                         value={props.signUpDetails.passWord}
                         onChange = {(event)=>props.changeHandler(event.target.name,event.target.value)}
                         onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>
                     <p className="error-display">{props.signUpDetails.errors.passWord}</p>
+                </div>	
+
+                <div className="form-group">	
+                    <label className="font-size">Profile Image</label>	
+                    <input 	
+                        type="file" className="form-control" 	
+                        className="form-control" 	
+                        placeholder="Upload image"	
+                        name="image"	
+                        onChange = {(event)=>props.changeHandler(event.target.name,event.target.files[0])}	
+                        onBlur = {(event)=>props.blurHandler(event.target.name,event.target.files[0])}	
+                        />	
+                    <p className="error-display">{props.signUpDetails.errors.image}</p>	
+                </div>	
+
+                <div className="form-group">	
+                    <label className="font-size">Phone Number</label>	
+                    <input 	
+                        type="phone" 	
+                        className="form-control" 	
+                        placeholder="Enter phone"	
+                        autoComplete="new-off" 	
+                        name="phone"	
+                        value={props.signUpDetails.phone}	
+                        onChange = {(event)=>props.changeHandler(event.target.name,event.target.value)}	
+                        onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>	
+                    <p className="error-display">{props.signUpDetails.errors.phone}</p>	
+                </div>	
+                
+                <div className="form-group">	
+                    <label className="font-size">Location</label>	
+                    <input 	
+                        type="location" 	
+                        className="form-control" 	
+                        placeholder="Enter location"	
+                        autoComplete="new-off" 	
+                        name="location"	
+                        value={props.signUpDetails.location}	
+                        onChange = {(event)=>props.changeHandler(event.target.name,event.target.value)}	
+                        onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>	
+                    <p className="error-display">{props.signUpDetails.errors.location}</p>
                 </div>
+
                 <div style={{fontSize:"16px",color:"red"}}>
                     <span>{props.error}</span>
                 </div>

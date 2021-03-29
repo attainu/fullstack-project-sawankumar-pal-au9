@@ -22,26 +22,29 @@ const SearchDisplay = (props) => {
                 return data.map((item) => {
                     return (
                         <div className="searchContainer" key={item._id}>
-                            <div className="row">
-                                <div className="col-sm-4">
-                                    <center>
-                                        <img src={item.thumbnail} alt="product-img"/>
-                                    </center>
-                                </div>
+                            <div className="searchImg">
+                                <img src={item.thumbnail} alt="product-img"/>
+                            </div>
 
-                                <div className="col-sm-8">
-                                    <Link to={`/detail/${item.asin}`} style={{textDecoration:'none'}}><h3 className="link">{item.title}</h3></Link>
+                            <center>
+                                <div className="searchData">
+                                    <div className="searchTitle">
+                                        <Link to={`/detail/${item.asin}`} style={{textDecoration:'none'}}><h3 className="link">{item.title}</h3></Link>
+                                    </div>
+
                                     <div>
                                         <p><b style={{color:'orange'}}>Rating: </b><span className="rating">{item.reviews.rating} </span>out of 5</p>
                                     </div>
+
                                     <div>
                                         <p>Rs.<b className="amount">{item.price.current_price}</b>&nbsp; &nbsp;<del>Rs.{item.price.before_price}</del></p>
                                     </div>
+
                                     <div>
                                         <p>You Save Rs.<b className="amount">{item.price.savings_amount}</b></p>
                                     </div>
                                 </div>
-                            </div>
+                            </center>
                         </div>
                     );
                 })
@@ -51,7 +54,7 @@ const SearchDisplay = (props) => {
                 return (
                     <div className="noData">
                         <center>
-                            <h3><b>No Data Found</b></h3>
+                            <img src="/images/nodata.jpg" alt="nodata"></img>
                         </center>
                     </div>
                 );
@@ -86,8 +89,8 @@ const SearchDisplay = (props) => {
     }
 
     return (
-        <>
-            <div className="searchResult">
+        <div className="searchDisplay">
+            <center>
                 {
                     renderSearch(propsData)
                 }
@@ -95,14 +98,15 @@ const SearchDisplay = (props) => {
                 <div className="managePage">
                     { propsData && propsData.length > 0 &&
                         <>
-                            <button onClick={renderPrevBtn}>{"<"} prev</button>
+                            <button className="btn btn-warning" onClick={renderPrevBtn}>{"<"} Prev</button>
                             <p>-- Page {page} --</p>
-                            <button onClick={renderNextBtn}>next {">"}</button>
+                            <button className="btn btn-warning" onClick={renderNextBtn}>Next {">"}</button>
                         </>
                     }               
                 </div>
-            </div>
-        </>
+            </center>
+        </div>
+        
     );
 }
 
