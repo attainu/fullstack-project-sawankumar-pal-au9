@@ -141,6 +141,7 @@ class Header extends React.Component {
         sessionStorage.removeItem('login');
         sessionStorage.removeItem('role');
         sessionStorage.removeItem('role');
+        sessionStorage.removeItem('categoryNumber');
         sessionStorage.removeItem('createAdmin');
         sessionStorage.removeItem('userDetails');
         sessionStorage.removeItem('productData');
