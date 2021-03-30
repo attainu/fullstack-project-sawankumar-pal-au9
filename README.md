@@ -16,7 +16,7 @@ We have used below technologies for the application
 
 
 ## Pre-requisites (for testing the application)
-1. User should have NodeJS installed on their machine.
+1. User should have ReactJS and NodeJS installed on their machine.
 2. Window users should have "git bash" installed on their machines to clone app and run git commands.
 3. You can test the application @ (https://e-commerce-amazed.herokuapp.com/)
 ## Setup For Testing Application
