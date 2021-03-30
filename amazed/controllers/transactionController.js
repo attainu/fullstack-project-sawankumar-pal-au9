@@ -48,10 +48,6 @@ export const newPayment = (req,res) => {
 
 export const getPayment = async(req,res) =>{
     const Id = req.params.id
-<<<<<<< HEAD
-=======
-
->>>>>>> 1542bfb4236d0fdd5ef55686e55bfa96a641bbb1
     try{
         
         const result = await Transaction.findById(Id)
@@ -63,8 +59,4 @@ export const getPayment = async(req,res) =>{
         res.status(404).send({"err":error.message})
     }
 
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 1542bfb4236d0fdd5ef55686e55bfa96a641bbb1
