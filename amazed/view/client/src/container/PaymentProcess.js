@@ -11,6 +11,7 @@ class PaymentProcess extends React.Component {
       orderDetails:''
     }
   }
+
   componentDidMount (props) {
     const orderDetails = this.props.location.state.orderDetails
     // console.log(orderDetails)
@@ -24,6 +25,7 @@ class PaymentProcess extends React.Component {
         amount:orderDetails.grandTotal
     },()=>this.openPayModal(this.state.amount))
 }
+
 openPayModal = (amt) => {
   let amount = amt * 100; 
   console.log(amount)

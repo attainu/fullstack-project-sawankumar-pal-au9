@@ -51,6 +51,7 @@ class PlaceOrder extends React.Component {
             }	
         }	
     }	
+
     componentDidMount() {	
         let productData = JSON.parse(sessionStorage.getItem('productData'))	
         let userName = sessionStorage.getItem('userName')	
@@ -147,12 +148,14 @@ class PlaceOrder extends React.Component {
                 state: {orderDetails:orderDetails}	
             })	
     }	
+
     changeHandler = (name, value) => {	
         this.blurHandler(name, value) 	
         this.setState({	
             [name]: value,	
         })	
     }	
+
     quantitychangeHandler = (value) => {	
         let grandTotal = (this.state.currentPrice * value) - this.state.couponDiscount;	
         this.setState({	
@@ -160,6 +163,7 @@ class PlaceOrder extends React.Component {
             grandTotal: grandTotal	
         })	
     }	
+
     couponChangeHandler = (value) => {	
         console.log(value)	
         let discountPercent = (value === "Not Available" || value === "default") ? 0 : value;	
@@ -171,6 +175,7 @@ class PlaceOrder extends React.Component {
             grandTotal: grandTotal?grandTotal:''	
         })	
     }	
+
     submitHandler = () => {	
         // console.log(this.state)	
         sessionStorage.removeItem('login');	

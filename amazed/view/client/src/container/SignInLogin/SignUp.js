@@ -91,6 +91,7 @@ class SignUp extends React.Component {
                     errors[name] = ''
                 }
                 break;
+
             case 'email':
                 let lastAtpos = value.lastIndexOf('@')
                 let lastDotpos = value.lastIndexOf('.')

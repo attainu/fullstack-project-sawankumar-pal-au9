@@ -9,6 +9,7 @@
   padding-bottom: 5%;
   height:auto;
 }
+
 .order-container{
   width: 100%;
   padding-right: 15px;
@@ -16,12 +17,14 @@
   margin-right: auto;
   margin-left: auto;
 }
+
 @media (min-width: 1200px)
 {
   .order-container{
     max-width: 1140px;
   }
 }
+
 .d-flex{
   display: flex;
   flex-direction: row;
