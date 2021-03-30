@@ -20,7 +20,8 @@ const Contact = (props) => {
                                     autoComplete="off" id="user" 
                                     className="form-control" required
                                     value={props.contactInfo.userName}
-                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
+                                    onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>
                                     <p className="error-display">{props.errors.userName}</p>
                             </div>
 
@@ -32,7 +33,8 @@ const Contact = (props) => {
                                     autoComplete="off" id="user" 
                                     className="form-control" required
                                     value={props.contactInfo.userEmail}
-                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
+                                    onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>
                                     <p className="error-display">{props.errors.userEmail}</p>
                             </div>
 
@@ -44,7 +46,8 @@ const Contact = (props) => {
                                     autoComplete="off" id="phone" 
                                     className="form-control" required
                                     value={props.contactInfo.phone}
-                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
+                                    onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>
                                     <p className="error-display">{props.errors.phone}</p>
                             </div>
                             <div className="form-group">
@@ -55,10 +58,19 @@ const Contact = (props) => {
                                     autoComplete="off" id="comment" 
                                     className="form-control" required
                                     value={props.contactInfo.comment}
-                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}/>
+                                    onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
+                                    onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>
                                     <p className="error-display">{props.errors.comment}</p>
                             </div>
                             
+                            <div style={{fontSize:"16px",color:"red"}}>
+                                <span>{props.errors.emptyField}</span>
+                            </div>
+
+                            <div style={{fontSize:"16px",color:"green"}}>
+                                <span>{props.success}</span>
+                            </div>
+
                             <button style={{marginBottom:"30px"}} onClick={props.submitHandler} className="btn btn-warning">Submit</button>
                         </form>
                     </div>

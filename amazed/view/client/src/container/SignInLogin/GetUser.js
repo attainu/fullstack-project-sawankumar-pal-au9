@@ -5,6 +5,7 @@ import { userDetails } from '../../actions/actionfile';
 class GetUser extends React.Component {
     componentDidMount() {
         const token = sessionStorage.getItem('token');
+        console.log("token", token)
         this.props.dispatch(userDetails(token))
     }
 

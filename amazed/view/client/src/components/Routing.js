@@ -31,23 +31,23 @@ const Routing = () => {
             <Route path='/search' component={Search}/>	
             <Route path='/detail/:id' component={Detail}/>	
             <Route path='/buynow' component={PlaceOrder}/>	
-            <Route path='/cart' component={Cart}/>	
+            <Route path='/customer_cart' component={Cart}/>	
             <Route path='/about' component={About}/>	
             <Route path='/contact' component={ContactUs}/>	
             <Route path='/signin' component={SignIn}/>	
             <Route path='/signup' component={SignUp}/>	
-            <Route path='/orders' component={Myorder}/>	
+            <Route path='/customer_orders' component={Myorder}/>	
             <Route path='/admin' component={Dashboard}/>	
             <Route path='/getUser' component={GetUser}/>	
             <Route path='/coupon' component={Coupon}/>	
             <Route path='/create_coupon' component={CreateCoupon}/>	
             <Route path='/usercoupon' component={UserCoupon}/>	
             <Route path='/profile' component={Profile}/>
-            <Route path='/product' component={Product}/>	
+            <Route path='/app_products' component={Product}/>	
             <Route path='/create_product' component={CreateProducts}/>
             <Route path='/notSignedIn' component={NotSignedIn}/>	
             <Route path='/payment' component={PaymentProcess}/>	
-            <Route path='/thankyou' component={ThankYou}/>	
+            <Route path='/thankyou' component={ThankYou}/>
             <Footer/>	
         </BrowserRouter>	
     );	

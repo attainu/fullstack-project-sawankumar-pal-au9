@@ -16,24 +16,24 @@ const Category = (props) => {
         if(data && data[0]) {
             return data.map((item) => {
                 return (
-                    <div className="categoryCard" key={item._id}>
-                        <h3 className="cardTitle"><u>{item.category}</u></h3>
-                        <img src={`${item.images[0]}`} alt="img1"/>
-                        <img src={`${item.images[1]}`} alt="img2"/>
-                        <img src={`${item.images[2]}`} alt="img3"/>
-                        <img src={`${item.images[3]}`} alt="img4"/>
-                        <div>
-                            <Link 
+                    <Link 
                                 to={`/search?category=${item.category}`} 
                                 style={{textDecoration:'none'}}
                                 onClick={() => {
                                     sessionStorage.setItem('categoryNumber', item.categoryNumber)
                                 }}
-                            >
+                    >
+                        <div className="categoryCard" key={item._id}>
+                            <h3 className="cardTitle"><u>{item.category}</u></h3>
+                            <img src={`${item.images[0]}`} alt="img1"/>
+                            <img src={`${item.images[1]}`} alt="img2"/>
+                            <img src={`${item.images[2]}`} alt="img3"/>
+                            <img src={`${item.images[3]}`} alt="img4"/>
+                            <div>
                                 <h4 className="link">SEE MORE</h4>
-                            </Link>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 );
             })
         }
@@ -77,7 +77,11 @@ const Category = (props) => {
                 </Slide>
             </div>
 
-            {/* <hr/> */}
+            <div className="categoryHead">
+                <h2>Categories</h2>
+            </div>
+
+            <hr/>
 
             <div className="container home-container">
                 {/* <h2 className="homeTitle">Categories</h2> */}

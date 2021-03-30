@@ -2,6 +2,15 @@ import React from 'react';
 import './CreateCoupon.css';
 
 const CreateCouponDisplay = (props) => {
+    var todaysDate = new Date(); // Gets today's date
+
+    // Max date attribute is in "YYYY-MM-DD". Need to format today's date accordingly
+    var year = todaysDate.getFullYear();                        // YYYY
+    var month = ("0" + (todaysDate.getMonth() + 1)).slice(-2);  // MM
+    var day = ("0" + (todaysDate.getDate() + 1)).slice(-2);    // DD
+    var minDate = (year +"-"+ month +"-"+ day);
+
+
     const handleChange = (e) => {
         let categoryNumber = document.getElementById('categoryNumber');
         categoryNumber.value = e.target.value;
@@ -109,6 +118,7 @@ const CreateCouponDisplay = (props) => {
                         className="form-control field-value"
                         type="date" 
                         name="expiryDate" 
+                        min={minDate}
                         onChange={(e) => props.changeHandler(e.target.name, e.target.value)} 
                         required>
                     </input>

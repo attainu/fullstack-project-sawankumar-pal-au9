@@ -5,6 +5,7 @@ import Transaction from '../model/transctions.js';
 import config from '../config.js';
 
 export const newOrders = (req,res) => {
+    
     let instance = new Razorpay({
         key_id: config.razorpay_auth.key_id,
         key_secret: config.razorpay_auth.key_secret
@@ -24,6 +25,7 @@ export const newOrders = (req,res) => {
 }
 
 export const newPayment = (req,res) => {
+
     const generated_signature = crypto.createHmac('sha256',config.razorpay_auth.key_secret)
     generated_signature.update(req.body.razorpay_order_id+"|"+ req.body.transactionid)
     if ( generated_signature.digest('hex') === req.body.razorpay_signature){
@@ -46,7 +48,7 @@ export const newPayment = (req,res) => {
 
 export const getPayment = async(req,res) =>{
     const Id = req.params.id
-    
+
     try{
         
         const result = await Transaction.findById(Id)
@@ -59,4 +61,3 @@ export const getPayment = async(req,res) =>{
     }
 
 };
-

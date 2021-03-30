@@ -12,7 +12,7 @@ const search = (state={}, action) => {
         case 'ALL_PRODUCTS':
             return { ...state, AllProducts: action.payload }
 
-        case 'CREATE_PRODUCTS':
+        case 'CREATE_PRODUCT':
             return { ...state, CreateProduct: action.payload }
 
         case 'DELETE_PRODUCT':

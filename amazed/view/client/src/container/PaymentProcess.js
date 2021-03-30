@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 
-const transaction_url = 'http://localhost:9800/transaction';
+const transaction_url = '/transaction';
 const razor_key = 'rzp_test_i3q74EogT2Neiu'
 class PaymentProcess extends React.Component {
   constructor(props){
@@ -11,6 +11,7 @@ class PaymentProcess extends React.Component {
       orderDetails:''
     }
   }
+
   componentDidMount (props) {
     const orderDetails = this.props.location.state.orderDetails
     // console.log(orderDetails)
@@ -24,6 +25,7 @@ class PaymentProcess extends React.Component {
         amount:orderDetails.grandTotal
     },()=>this.openPayModal(this.state.amount))
 }
+
 openPayModal = (amt) => {
   let amount = amt * 100; 
   console.log(amount)

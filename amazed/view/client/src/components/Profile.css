@@ -153,3 +153,17 @@ button {
     font-weight: 600;
     font-size: 18px;
 }
+
+@media only screen and (max-width: 640px) {
+    .img-radius {
+        max-width: 250px;
+        max-height: 250px;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .img-radius {
+        max-width: 230px;
+        max-height: 200px;
+    }
+}

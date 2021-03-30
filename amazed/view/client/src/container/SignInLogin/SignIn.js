@@ -13,7 +13,7 @@ class SignIn extends React.Component {
             success:'',
             errors: {
                 email: '',
-                passWord: '',
+                password: '',
                 signinError: ''
             }
         }
@@ -27,7 +27,36 @@ class SignIn extends React.Component {
     }
 
     blurHandler = (name,value)=> {	
-        console.log(name,value)	
+        let errors = this.state.errors;
+        switch (name) {
+            case 'email':	
+                let lastAtpos = value.lastIndexOf('@')	
+                let lastDotpos = value.lastIndexOf('.')	
+                if (value === '') {	
+                    errors[name] = 'Field can not be blank'	
+                }	
+                else if (!(lastAtpos < lastDotpos && lastAtpos > 0 && value.indexOf('@@') === -1 && lastDotpos > 2 && (value.length - lastDotpos) > 2)) {	
+                    errors[name] = 'Email is not valid'	
+                }	
+                else {	
+                    errors[name] = ''	
+                }	
+                break;	
+
+            case 'password':
+                if (value.length < 8) {	
+                    errors[name] = 'Password should have atleast 8 characters'
+                }else {	
+                    errors[name] = ''	
+                }	
+                break;
+
+            default:	
+                break;
+        }
+        this.setState({	
+            errors, [name]: value	
+        })
     }
 
     onSubmit = (event)=> {

@@ -9,50 +9,50 @@ const Profile = (props) => {
         if(userDetails) {
             return(
             <>
-                <div class="page-content page-container" id="page-content">
-                <div class="padding">
-                    <div class="row container d-flex justify-content-center">
-                        <div class="col-xl-6 col-md-12">
-                            <div class="card user-card-full">
-                                <div class="row m-l-0 m-r-0">
-                                    <div class="col-sm-4 bg-c-lite-green user-profile">
-                                        <div class="card-block text-center text-white">
-                                            <div class="m-b-25"> 
-                                                <img src={userDetails.imageUrl?userDetails.imageUrl:'/images/defaultImage.jpg'} class="img-radius" alt="defaultImage.jpg"/>
+                <div className="page-content page-container" id="page-content">
+                <div className="padding">
+                    <div className="row container d-flex justify-content-center">
+                        <div className="col-xl-6 col-md-12">
+                            <div className="card user-card-full">
+                                <div className="row m-l-0 m-r-0">
+                                    <div className="col-md-4 bg-c-lite-green user-profile">
+                                        <div className="card-block text-center text-white">
+                                            <div className="m-b-25"> 
+                                                <img src={userDetails.imageUrl?userDetails.imageUrl:'/images/defaultImage.jpg'} className="img-radius" alt="defaultImage.jpg"/>
                 
                                             </div>
-                                            <h6 class="f-w-600">{userDetails.name}</h6>
-                                            <p>{userDetails.location}</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                            <h6 className="f-w-600">{userDetails.name}</h6>
+                                            <p>{userDetails.location}</p> <i className=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                                         </div>
                                     </div>
-                                    <div class="col-sm-8">
-                                        <div class="card-block">
-                                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Email</p>
-                                                    <h6 class="text-muted f-w-400">{userDetails.email}</h6>
+                                    <div className="col-sm-8">
+                                        <div className="card-block">
+                                            <h6 className="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Email</p>
+                                                    <h6 className="text-muted f-w-400">{userDetails.email}</h6>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Phone</p>
-                                                    <h6 class="text-muted f-w-400">{userDetails.phone}</h6>
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Phone</p>
+                                                    <h6 className="text-muted f-w-400">{userDetails.phone}</h6>
                                                 </div>
                                             </div>
                                             {
                                             (userDetails.role !== 'Admin') && 
                                             <>
-                                            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Details</h6>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Recent Orders</p>
-                                                    <h6 class="text-muted f-w-400">
-                                                        <Link to="/orders" style={{color:"#298EDC"}}>@orders</Link>
+                                            <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Details</h6>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Recent Orders</p>
+                                                    <h6 className="text-muted f-w-400">
+                                                        <Link to="/customer_orders" style={{color:"#298EDC"}}>@orders</Link>
                                                     </h6>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Products on Cart</p>
-                                                    <h6 class="text-muted f-w-400">
-                                                    <Link to="/cart" style={{color:"#298EDC"}}>@cart</Link>
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Products on Cart</p>
+                                                    <h6 className="text-muted f-w-400">
+                                                    <Link to="/customer_cart" style={{color:"#298EDC"}}>@cart</Link>
                                                     </h6>
                                                 </div>
                                             </div>
@@ -61,18 +61,18 @@ const Profile = (props) => {
                                             {
                                             (userDetails.role === 'Admin') && 
                                             <>
-                                            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Details</h6>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Add Coupon</p>
-                                                    <h6 class="text-muted f-w-400">
+                                            <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Details</h6>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Add Coupon</p>
+                                                    <h6 className="text-muted f-w-400">
                                                         <Link to="/create_coupon" style={{color:"#298EDC"}}>@coupons</Link>
                                                     </h6>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Add Products</p>
-                                                    <h6 class="text-muted f-w-400">
-                                                    <Link to="/product" style={{color:"#298EDC"}}>@products</Link>
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Add Products</p>
+                                                    <h6 className="text-muted f-w-400">
+                                                    <Link to="/create_product" style={{color:"#298EDC"}}>@products</Link>
                                                     </h6>
                                                 </div>
                                             </div>

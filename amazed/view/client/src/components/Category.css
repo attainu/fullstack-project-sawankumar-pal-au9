@@ -18,11 +18,11 @@
     display: inline-block;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     overflow: hidden;
-    transition: transform 0.5s ease-in 0s;
+    transition: transform 0.3s ease-in 0s;
 }
 
 .categoryCard:hover{
-    transform: scale(1.06,1.06);
+    transform: scale(1.03,1.03);
     z-index: 1;
 }
 
@@ -49,13 +49,31 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.categoryHead {
+    display: none; 
+    font-weight: 700;
+    color: #1A3E4C;
+    text-align: center;
+    background-color: lavender;
+}
+
 @media only screen and (max-width: 1050px) {
     .categoryCard {
         max-width: 45%;
     }
-}@media only screen and (max-width: 750px) {
+}
+
+@media only screen and (max-width: 750px) {
     .categoryCard {
         max-width: 80%;
+    }
+
+    .slide-container {
+        display: none;
+    }
+
+    .categoryHead {
+        display: block;
     }
 }
 

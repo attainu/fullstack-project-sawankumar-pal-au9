@@ -35,6 +35,8 @@ class Myorder extends React.Component{
                 <div className="container">
                     <h2 className="cartHeading">Orders List</h2>
 
+                    <hr/>
+
                     <div style={{fontSize:"20px",color:"green"}}>
                         <center>
                             <span id="error"></span>

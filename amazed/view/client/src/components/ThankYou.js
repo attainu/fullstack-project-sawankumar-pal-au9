@@ -1,7 +1,7 @@
 import React from 'react';
 import './Thankyou.css';
-const trans_url ='http://localhost:9800/transaction';
-const order_url ='http://localhost:9800/orders'
+const trans_url ='/transaction';
+const order_url ='/orders';
 class ThankYou extends React.Component {
     constructor(){
         super() 
@@ -47,31 +47,32 @@ class ThankYou extends React.Component {
         console.log(details)
         if(details){
             return(
-                <div className="container">
-                    <div className="content-box">
-                        <div className="tick-mark">
-                            <img src="/images/tickMark.png" alt="tickMark"></img>
-                        </div>
-                        <div className="success">
-                            <h2>Payment Successful !!!!</h2>
-                            <h3>Thank you for the purchase</h3>
-                        </div>
-                        <div className="payment-info">
-                            <h4>Your refernce number <span className="payment-details">{details.transactionid}</span></h4>
-                            <h4>Amount paid <span className="payment-details">{details.transactionamount}</span></h4>
-                        </div>
-                        <div className="payment-buttons">
-                            <button className="btn btn-warning payment-buttons1"
-                            onClick={()=>{this.props.history.push('/orders')}}
-                            >My orders</button>
+                <div className="container paymentThankyou">
+                    <center>
+                        <div className="content-box">
+                            <div className="tick-mark">
+                                <img src="/images/tickMark.png" alt="tickMark"></img>
+                            </div>
+                            <div className="success">
+                                <h2>Payment Successful !!!!</h2>
+                                <h3>Thank you for the purchase</h3>
+                            </div>
+                            <div className="payment-info">
+                                <h4>Your refernce number <span className="payment-details">{details.transactionid}</span></h4>
+                                <h4>Amount paid <span className="payment-details">{details.transactionamount}</span></h4>
+                            </div>
+                            <div className="payment-buttons">
+                                <button className="btn btn-warning payment-buttons1"
+                                onClick={()=>{this.props.history.push('/customer_orders')}}
+                                >My orders</button>
 
-                            <button className="btn btn-warning payment-buttons2"
-                            onClick={()=>{this.props.history.push('/cart')}}
-                            >Products on cart</button>
+                                <button className="btn btn-warning payment-buttons2"
+                                onClick={()=>{this.props.history.push('/customer_cart')}}
+                                >Products on cart</button>
+                            </div>
+                            
                         </div>
-                        
-                    </div>
-
+                    </center>
                 </div>
             )
 

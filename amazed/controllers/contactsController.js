@@ -1,6 +1,8 @@
 import Contacts from '../model/contacts.js';
+import { checkEmail, checkNumber } from '../utils/validator.js';
 import config from '../config.js';
 import nodemailer from 'nodemailer'; 
+import moment from 'moment';
 
 let mailTransporter = nodemailer.createTransport({ 
     service: 'gmail', 
@@ -10,11 +12,22 @@ let mailTransporter = nodemailer.createTransport({
 //add user query
 export const AddQuery = async(req,res) => {
     // console.log(req.body)
-    const date = new Date();
-    const month = date.toLocaleString('default', { month:'long' });
+    let cur_date = moment(new Date(Date.now())).format('YYYY-MM-DD HH:mm:ss');
+
     try{
+
+        const IsValid = checkEmail(req.body.userEmail);
+        if(!IsValid){
+            res.send("Invalid Email")
+        }
+
+        const IsValidPhone = checkNumber(req.body.phone);
+        if(!IsValidPhone){
+            res.send("Invalid phone number")
+        }
+
         let data = {
-            date : req.body.date ? req.body.date : `${date.getDay()} ${month} ${date.getFullYear()}`,
+            date : req.body.date ? req.body.date : cur_date,
             userName : req.body.userName,
             userEmail : req.body.userEmail,
             phone : req.body.phone,
@@ -52,13 +65,36 @@ export const AddQuery = async(req,res) => {
         }
 };
 
-//update contact info
+//get all contact us data
+
+export const getContactUs = async (req, res) => {
+    
+    try {
+
+        if(!req.session.user && req.session.user.role !=='Admin') {
+            return res.status(400).send('No Session Found! Please Login Again')
+        }
+
+        const data = await Contacts.find({});
+        return res.status(200).send(data);
+    }
+    catch(error) {
+        return res.status(409).send({"err": error.message});
+    }
+} 
+
+//update contact us info
 export const updateContact = async (req, res) => {
     try {
+
+        if(!req.session.user && req.session.user.role !=='Admin') {
+            return res.status(400).send('No Session Found! Please Login Again')
+        }
+
         const _id = req.params.id
         const updaterequired = await Contacts.findByIdAndUpdate(_id, req.body.contact);
 
-        res.status(204).send({"sucess":"Contact is updated successfully"});
+        res.status(204).send({"sucess":"Data is updated successfully"});
     }
 
     catch (error) {

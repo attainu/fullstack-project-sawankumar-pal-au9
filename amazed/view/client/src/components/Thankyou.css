@@ -5,24 +5,28 @@
     padding:10px;
     width:70rem;
     height:auto;
-    margin:10rem;
+    margin:5rem 0;
 }
-.tick-mark img{
+/* .tick-mark img{
     margin-left: 20rem;
-}
+} */
 
-.success,.payment-info{
+/* .success,.payment-info{
     margin-left: 12rem;    
-}
+} */
+
 .payment-details{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: brown;
 }
+
 .payment-buttons{
     display: flex;
+    justify-content: center;
 }
+
 .payment-buttons1 {
-    margin-left: 15rem; 
+    margin-right: 5rem; 
     padding: 5px;
     font-size: 18px;
 }
@@ -30,4 +34,48 @@
     margin-left: 5rem; 
     padding: 5px;
     font-size: 18px;
+}
+
+@media only screen and (max-width: 900px) {
+    .content-box {
+        width: 80%;
+    }
+
+    .paymentThankyou {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .payment-buttons1 {
+        margin-right: 2rem; 
+        padding: 5px;
+        font-size: 18px;
+    }
+
+    .payment-buttons2 {
+        margin-left: 2rem; 
+        padding: 5px;
+        font-size: 18px;
+    }
+
+}
+
+@media only screen and (max-width: 400px) {
+    .payment-buttons{
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .payment-buttons1 {
+        margin-bottom: 2rem; 
+        margin-left: 4rem;
+        padding: 5px;
+        font-size: 18px;
+    }
+
+    .payment-buttons2 { 
+        padding: 5px;
+        font-size: 18px;
+    }
 }
