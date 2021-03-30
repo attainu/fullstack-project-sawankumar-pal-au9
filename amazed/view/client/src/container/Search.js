@@ -45,8 +45,35 @@ class Search extends React.Component {
 
     filter = (filteredData) => {
         this.setState({
+            ...this.state,
+            page: 1,
             data: {SearchResult: filteredData}
         })
+    }
+
+    renderPrevBtn = (e) => {
+        e.preventDefault();
+        if(this.state.page > 1) {
+            this.setState({
+                ...this.state,
+                page: this.state.page - 1
+            })
+            document.body.scrollTop = 0; 
+            document.documentElement.scrollTop = 0;
+        }
+    }
+
+    renderNextBtn = (e) => {
+        e.preventDefault();
+        let check = (this.state.page*15 + 1);
+        if(check <= this.state.data.SearchResult.length) {
+            this.setState({
+                ...this.state,
+                page: this.state.page + 1
+            })
+            document.body.scrollTop = 0; 
+            document.documentElement.scrollTop = 0;
+        }
     }
 
 
@@ -65,6 +92,9 @@ class Search extends React.Component {
                 <div className="subMainSearch">
                     <SearchDisplay 
                         sData={this.state.data.SearchResult}
+                        page={this.state.page}
+                        prev={this.renderPrevBtn}
+                        next={this.renderNextBtn}
                     />
                 </div>
             </div>

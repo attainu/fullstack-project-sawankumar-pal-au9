@@ -129,4 +129,8 @@
         width: 80%;
         margin: 20px;
     }
+
+    .noData * img {
+        max-width: 80%;
+    }
 }

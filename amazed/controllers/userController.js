@@ -16,41 +16,48 @@ export const getAll = (req,res) => {
 
 export const register = (req,res) =>{
     // console.log(req.body)
-    const hashedPass = bcrypt.hashSync(req.body.password,8)
-    const status = req.body.isActive;
+    User.findOne({email: req.body.email}, (err, result) => {
+        if(err) throw err;
+        if(result && result.email) {
+            return res.status(409).send({"auth": false, "error": "User Already Exist"})
+        }else {
+            const hashedPass = bcrypt.hashSync(req.body.password,8)
+            const status = req.body.isActive;
 
-    const IsValidUserEmail = checkEmail(req.body.email);
-    if(!IsValidUserEmail){
-        res.send("Invalid Email")
-    }
+            const IsValidUserEmail = checkEmail(req.body.email);
+            if(!IsValidUserEmail){
+                return res.send("Invalid Email")
+            }
 
-    const IsValidPhone = checkNumber(req.body.phone);
-    if(!IsValidPhone){
-        res.send("Invalid Phone")
-    }
+            const IsValidPhone = checkNumber(req.body.phone);
+            if(!IsValidPhone){
+                return res.send("Invalid Phone")
+            }
 
-    let toBool = (status) => {
-        if(status === 'true'){
-            return status= true
-         }
-         else{
-             return status = false
-         }
+            let toBool = (status) => {
+                if(status === 'true'){
+                    return status= true
+                }
+                else{
+                    return status = false
+                }
 
-    }
-    User.create({
-        name:req.body.name,
-        email:req.body.email,
-        password:hashedPass,
-        role:req.body.role?req.body.role:'User',
-        isActive: status?status:true,	
-        imageUrl: req.body.imageUrl? req.body.imageUrl:'https://img.icons8.com/bubbles/100/000000/user.png',	
-        phone:req.body.phone,	
-        location:req.body.location
+            }
+            User.create({
+                name:req.body.name,
+                email:req.body.email,
+                password:hashedPass,
+                role:req.body.role?req.body.role:'User',
+                isActive: status?status:true,	
+                imageUrl: req.body.imageUrl? req.body.imageUrl:'https://img.icons8.com/bubbles/100/000000/user.png',	
+                phone:req.body.phone,	
+                location:req.body.location
 
-    }, (err,result) => {
-        if(err) return res.status(500),send('Error')
-        res.status(200).send("Registration successful")
+            }, (err,result) => {
+                if(err) return res.status(500),send('Error')
+                return res.status(200).send({ "auth": true, "message": "Registration successful" })
+            })
+        }
     })
 }
 

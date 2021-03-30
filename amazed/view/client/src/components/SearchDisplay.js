@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom';
 import './SearchDisplay.css';
 
 const SearchDisplay = (props) => {
-    const [page, setPage] = useState(1);
     const [propsData, setPropsData] = useState("");
 
     useEffect(() => {
         if(props.sData && props.sData.length > 0) {
-            const data = props.sData.slice((page*15 - 15), page*15);
+            const data = props.sData.slice((props.page*15 - 15), props.page*15);
             setPropsData(data);
         }
         if(props.sData && props.sData.length === 0) {
             setPropsData([]);
         }
-    }, [props.sData, page]);
+    }, [props.sData, props.page]);
 
     const renderSearch = (data) => {
         if(data){
@@ -68,25 +67,7 @@ const SearchDisplay = (props) => {
             );
         }
     }
-
-    const renderPrevBtn = (e) => {
-        e.preventDefault();
-        if(page > 1) {
-            setPage((prevPage) => prevPage - 1);
-            document.body.scrollTop = 0; 
-            document.documentElement.scrollTop = 0;
-        }
-    }
-
-    const renderNextBtn = (e) => {
-        e.preventDefault();
-        let check = (page*15 + 1);
-        if(check <= props.sData.length) {
-            setPage((prevPage) => prevPage + 1);
-            document.body.scrollTop = 0; 
-            document.documentElement.scrollTop = 0;
-        }
-    }
+    
 
     return (
         <div className="searchDisplay">
@@ -98,9 +79,9 @@ const SearchDisplay = (props) => {
                 <div className="managePage">
                     { propsData && propsData.length > 0 &&
                         <>
-                            <button className="btn btn-warning" onClick={renderPrevBtn}>{"<"} Prev</button>
-                            <p>-- Page {page} --</p>
-                            <button className="btn btn-warning" onClick={renderNextBtn}>Next {">"}</button>
+                            <button className="btn btn-warning" onClick={props.prev}>{"<"} Prev</button>
+                            <p>-- Page {props.page} --</p>
+                            <button className="btn btn-warning" onClick={props.next}>Next {">"}</button>
                         </>
                     }               
                 </div>

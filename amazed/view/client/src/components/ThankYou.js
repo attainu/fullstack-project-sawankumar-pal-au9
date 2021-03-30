@@ -1,7 +1,7 @@
 import React from 'react';
 import './Thankyou.css';
-const trans_url ='http://localhost:9800/transaction';
-const order_url ='http://localhost:9800/orders'
+const trans_url ='/transaction';
+const order_url ='/orders';
 class ThankYou extends React.Component {
     constructor(){
         super() 

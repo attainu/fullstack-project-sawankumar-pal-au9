@@ -51,7 +51,7 @@ const SignUpDisplay = (props) => {
     return(
         <div className="main-continer">
             <div className="form-class">
-            <form className="form-data" enctype="multipart/form-data">
+            <form className="form-data" encType="multipart/form-data">
                 {renderHeading()}
 
                 <div className="form-group">
@@ -90,7 +90,7 @@ const SignUpDisplay = (props) => {
                         placeholder="Enter password"
                         autoComplete="new-off" 
                         name="password"
-                        value={props.signUpDetails.passWord}
+                        value={props.signUpDetails.password}
                         onChange = {(event)=>props.changeHandler(event.target.name,event.target.value)}
                         onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>
                     <p className="error-display">{props.signUpDetails.errors.passWord}</p>
@@ -138,7 +138,17 @@ const SignUpDisplay = (props) => {
                 </div>
 
                 <div style={{fontSize:"16px",color:"red"}}>
-                    <span>{props.error}</span>
+                    {
+                        props.error !== "success" &&
+                        <span>{props.error}</span>
+                    }
+                </div>
+
+                <div style={{fontSize:"16px",color:"green"}}>
+                    {
+                        props.error === "success" &&
+                        <span>Registeration Successful</span>
+                    }
                 </div>
 
                 {renderButton()}

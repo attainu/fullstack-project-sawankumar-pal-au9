@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 
-const transaction_url = 'http://localhost:9800/transaction';
+const transaction_url = '/transaction';
 const razor_key = 'rzp_test_i3q74EogT2Neiu'
 class PaymentProcess extends React.Component {
   constructor(props){

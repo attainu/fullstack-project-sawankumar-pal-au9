@@ -72,7 +72,7 @@ const Profile = (props) => {
                                                 <div className="col-sm-6">
                                                     <p className="m-b-10 f-w-600">Add Products</p>
                                                     <h6 className="text-muted f-w-400">
-                                                    <Link to="/product" style={{color:"#298EDC"}}>@products</Link>
+                                                    <Link to="/create_product" style={{color:"#298EDC"}}>@products</Link>
                                                     </h6>
                                                 </div>
                                             </div>

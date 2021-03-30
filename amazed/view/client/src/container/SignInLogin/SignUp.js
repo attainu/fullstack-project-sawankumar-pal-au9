@@ -2,14 +2,14 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SignUpDisplay from '../../components/SignInLogin/SignUpDisplay';
-import { signUp, getAllUsers } from '../../actions/actionfile';
+import { signUp } from '../../actions/actionfile';
 class SignUp extends React.Component {
     constructor(){
         super();
         this.state = {
             userName:'',
             email:'',
-            passWord:'',
+            password:'',
             image:'',	
             imageUrl: '',	
             phone:'',	
@@ -21,18 +21,41 @@ class SignUp extends React.Component {
                 phone: '',
                 location: '',
                 emptyField: ''
-            }
+            },
+            success: ''
         }
     }
 
-    componentDidMount() {
-        this.props.dispatch(getAllUsers())
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if(nextProps.signupMessage && nextProps.signupMessage.auth === false) {
+            this.setState({	
+                errors: { 
+                    ...this.state.errors, 
+                    emptyField: "This email is already registerd with us.Please login with the same email and password or register with a new email"
+                }	
+            });
+        }else if(nextProps.signupMessage && nextProps.signupMessage.auth) {
+            this.setState({
+                errors: { 
+                    ...this.state.errors, 
+                    emptyField: "success" 
+                }	
+            });
+
+            setTimeout(() => {
+                if(sessionStorage.getItem('createAdmin')){	
+                    alert("Admin Created Successfully!");	
+                    this.props.history.push('/admin');	
+                }	
+                else{	
+                    this.props.history.push('/signin');	
+                }	
+            }, 2000)
+        }
     }
 
 
     changeHandler = (name,value) => {
-        console.log("frmchange",name,value)	
-        // this.blurHandler(name, value)
         this.setState({
             ...this.state,
             [name]:value            
@@ -121,58 +144,45 @@ class SignUp extends React.Component {
                 const respdata = await resp.json();	
                 this.setState({ 	
                     ...this.state,           	
-                    imageUrl:respdata.url})	
+                    imageUrl:respdata.url
+                })	
             }
+            
             const userData = {	
                 name: this.state.userName,	
                 email: this.state.email,	
-                password: this.state.passWord,	
+                password: this.state.password,	
                 role: sessionStorage.getItem('createAdmin')?"Admin":"User",	
                 phone:this.state.phone,	
                 location:this.state.location,	
                 imageUrl:this.state.imageUrl	
             }	
+
             if (this.state.errors.userName !== '' || this.state.errors.email !== ''	
-                || this.state.errors.password !== ''  || userData.name === ''	
-                || userData.email === '' || userData.password === '') {	
+                || userData.name === ''	|| userData.email === '' || 
+                userData.password === '') {	
             
                 this.setState({	
-                    errors: { ...this.state.errors, emptyField: "UserName Email and Password are required fields." }	
+                    errors: { ...this.state.errors, 
+                        emptyField: "UserName Email and Password should be correct and are required fields."
+                    }	
                 });	
             }	
+
+            else if (this.state.errors.password !== '') {
+                this.setState({	
+                    errors: { ...this.state.errors, 
+                        emptyField: this.state.errors.password
+                    }	
+                });
+            }
                 
-            else{	
-                // console.log("USER detail>>>>>>>>>>",JSON.stringify(userDetails))	
-                const userDetails = this.props.allUsersDetails	
-                console.log(userDetails)	
-                const filteredUserData = userDetails.filter((user) => {	
-                return (user.email === this.state.email)	
-                })	
-                console.log(filteredUserData)	
-                if(filteredUserData.length > 0) {	
-                    alert("This email is already registerd with us.Please login with the same email and password or register with a new email");	
-                    this.setState({	
-                        userName:'',	
-                        email:'',	
-                        passWord:'',	
-                    })	
-                    this.props.history.push('/signup');	
-                }	
-                else{	
-                    this.props.dispatch(signUp(userData));	
-                    if(sessionStorage.getItem('createAdmin')){	
-                        alert("Admin Created Successfully!");	
-                        this.props.history.push('/admin');	
-                    }	
-                    else{	
-                        this.props.history.push('/signin');	
-                    }	
-                }       	
+            else{		
+                this.props.dispatch(signUp(userData));	
             }	   	
         }	
         catch (err) {	
-            console.log(err);
-            // this.setState({error:"Invalid User details"})	
+            console.log(err);	
         }	
     }
 
@@ -196,7 +206,7 @@ SignUp.prototypes = {
 const mapStateToProps = (state) => {
     console.log(state)
     return {
-        allUsersDetails : state.signup.allusers
+        signupMessage: state.signup.signupStatus
     }
 }
 export default connect(mapStateToProps)(SignUp);
