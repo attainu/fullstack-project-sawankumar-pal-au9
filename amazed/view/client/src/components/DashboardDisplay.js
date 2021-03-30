@@ -153,7 +153,7 @@ const DashboardDisplay = (props) => {
                         <Tab style={{color:'green'}}>Completed</Tab>
                         </TabList>
 
-                        <TabPanel>
+                        <TabPanel style={{overflowX: "scroll"}}>
                             <table className="table table-responsive">
                                 <thead style={{background:"orange"}}>
                                     <tr>
@@ -177,7 +177,7 @@ const DashboardDisplay = (props) => {
                             </table>
                         </TabPanel>
                         
-                        <TabPanel>
+                        <TabPanel style={{overflowX: "scroll"}}>
                             <table className="table table-responsive">
                                 <thead style={{background:"orange"}}>
                                     <tr>

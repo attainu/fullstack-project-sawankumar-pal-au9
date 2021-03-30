@@ -1,11 +1,23 @@
 import Coupons from '../model/couponsModel.js';
-import moment from 'moment';
+import { checkNumber } from '../utils/validator.js';
 
 //Add new Coupon
 export const AddNewCoupon = async(req, res) => {
     try {
         let date = new Date();
         let cur_date = `${date.getDate()} ${date.toLocaleString('default', {month:'long'})} ${date.getFullYear()}`;
+
+        if(!req.session.user && req.session.user.role !=='Admin') {	
+            return res.status(400).send('No Session Found! Please Login Again')	
+        }	
+        const IsValidCat = checkNumber(req.body.categoryNumber);	
+        if(!IsValidCat){	
+            res.send("Invalid category number")	
+        }	
+        const IsValidDiscount = checkNumber(req.body.discountPercent);	
+        if(!IsValidDiscount){	
+            res.send("Invalid discount")	
+        }	
 
         let couponData = {
             couponName: req.body.couponName,
@@ -29,6 +41,11 @@ export const AddNewCoupon = async(req, res) => {
 export const listCoupons = async(req, res) => {
 
     try {
+
+        if(!req.session.user) {	
+            return res.status(400).send('No Session Found! Please Login Again')	
+        }	
+
         const response = await Coupons.find({}).sort({createdDate: -1})
         res.status(200).send(response)
     }
@@ -41,6 +58,10 @@ export const listCoupons = async(req, res) => {
 
 // get coupon by categoryNumber
 export const listCouponsByCat = async(req, res) => {
+    if(!req.session.user) {	
+        return res.status(400).send('No Session Found! Please Login Again')	
+    }	
+    
     if(req.query.category) {
         const query = req.query.category	
         try {	
@@ -67,6 +88,11 @@ export const listCouponsByCat = async(req, res) => {
 // get coupon details
 export const couponById = async(req, res) => {
     const id = req.params.id
+
+    if(!req.session.user) {	
+        return res.status(400).send('No Session Found! Please Login Again')	
+    }
+
     try {
         const response = await Coupons.findById(id)
         res.status(200).send(response)
@@ -80,8 +106,14 @@ export const couponById = async(req, res) => {
 
 // delete coupon 
 export const deleteItem = async(req, res) => {
-    const id = req.params.id;
+    const id = req.params.id;	
+
     try {
+
+        if(!req.session.user && req.session.user.role !=='Admin') {	
+            return res.status(400).send('No Session Found! Please Login Again')	
+        }
+
         const response = await Coupons.findByIdAndDelete(id);
         res.status(204).send({"success":"successfully deleted"})
     }
@@ -96,6 +128,11 @@ export const deleteItem = async(req, res) => {
 export const update = async(req, res) => {
     const id = req.params.id;
     try {
+
+        if(!req.session.user ) {	
+            return res.status(400).send('No Session Found! Please Login Again')	
+        }	
+
         const response = await Coupons.update(
             {_id: id},
             {

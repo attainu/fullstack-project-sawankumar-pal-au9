@@ -95,7 +95,7 @@ const DetailsDisplay = (props) => {
     }
 
     return (
-        <div className="container">
+        <div className="container detailPage">
             {renderDetails(props.dData)}
         </div>
     );

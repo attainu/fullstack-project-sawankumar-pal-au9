@@ -23,6 +23,7 @@ class UserProfile extends React.Component{
 
     changeDetails = (name,value) => {
         this.setState({
+            ...this.state,
             userDetails:{
                 ...this.state.userDetails,
                 [name]:value
@@ -33,36 +34,38 @@ class UserProfile extends React.Component{
 
     changeImage = (name,value) => {
         this.setState({
+            ...this.state,
             [name]:value
-            
         })
     }
 
     updateUser = async(event) => {
         event.preventDefault();
         if(this.state.userDetails.imageUrl !== this.state.image && event.target.name !== "closeModal") {
-            const data = new FormData()	
-            data.append("file",this.state.image)
-            data.append("upload_preset","image-uploader")	
-            data.append("clone_name","sunitta")	
-            console.log(data)	
-            try{	
-                const resp = await fetch('https://api.cloudinary.com/v1_1/sunitta/image/upload',
-                {	
-                method:'POST',	
-                body:data	
-                })
-                const respdata = await resp.json();	
-                this.setState({
-                    userDetails:{
-                        ...this.state.userDetails,
-                        imageUrl:respdata.url
-                    }  
-                })
-            }
+            if(this.state.image) {
+                const data = new FormData()	
+                data.append("file", this.state.image)
+                data.append("upload_preset","image-uploader")	
+                data.append("clone_name","sunitta")	
+                console.log(data)	
+                try{	
+                    const resp = await fetch('https://api.cloudinary.com/v1_1/sunitta/image/upload',
+                    {	
+                    method:'POST',	
+                    body:data	
+                    })
+                    const respdata = await resp.json();	
+                    this.setState({
+                        userDetails:{
+                            ...this.state.userDetails,
+                            imageUrl:respdata.url
+                        }  
+                    })
+                }
 
-            catch (err) {	
-                this.setState({error:"Invalid User details"})	
+                catch (err) {	
+                    this.setState({error:"Invalid User details"})	
+                }
             }
         }
         	

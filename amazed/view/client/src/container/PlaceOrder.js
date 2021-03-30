@@ -29,7 +29,7 @@ class PlaceOrder extends React.Component {
             quantity: 1,	
             totalPrice: 1,	
             discountAmount:1,	
-            payment: 'COD',	
+            payment: '',	
             status: 'Order Placed',	
             delivered: false,	
             success: '',	
@@ -45,7 +45,7 @@ class PlaceOrder extends React.Component {
                 postCode: '',	
                 phone: '',	
                 email: '',	
-                payment: 'COD',	
+                payment: '',	
                 status: 'Order Placed',	
                 emptyFields: ''	
             }	
@@ -70,9 +70,14 @@ class PlaceOrder extends React.Component {
         	
         this.props.dispatch(getAllCoupons());	
     }	
+
     blurHandler = (name, value) => {	
         let errors = this.state.errors	
-        let isnum = /^\d+$/.test(value);	
+        var regexAlpha = /^[A-Za-z]+$/;
+        var regexNum = /^[0-9]+$/;
+        let isValid1 = regexAlpha.test(value);
+        let isValid2 = regexNum.test(value);
+        ;	
         switch (name) {	
             case 'fname':	
             case 'lname':	
@@ -82,8 +87,8 @@ class PlaceOrder extends React.Component {
                 else if (value.length < 3) {	
                     errors[name] = 'Name should be more than three letters'	
                 }	
-                else if (isnum) {	
-                    errors[name] = 'Name should not be a number'	
+                else if (!isValid1) {	
+                    errors[name] = 'Name should contain alphabets only'	
                 }	
                 else {	
                     errors[name] = ''	
@@ -107,7 +112,7 @@ class PlaceOrder extends React.Component {
                 else if (value.length < 5) {	
                     errors[name] = 'Field should contain more than 5 digits'	
                 }	
-                else if (!isnum) {	
+                else if (!isValid2) {	
                     errors[name] = 'Should contain only number'	
                 }	
                 else {	
@@ -133,7 +138,8 @@ class PlaceOrder extends React.Component {
         this.setState({	
             errors, [name]: value	
         })	
-    }	
+    }
+
     paymentProcess = (orderDetails) => {	
         console.log(orderDetails)	
             this.props.history.push({	
@@ -191,20 +197,32 @@ class PlaceOrder extends React.Component {
             totalPrice: this.state.totalPrice,	
             couponDiscount: this.state.couponDiscount,	
             grandTotal: this.state.grandTotal?this.state.grandTotal:this.state.totalPrice,	
-            payment: this.state.payment,	
+            payment: this.state.payment?this.state.payment:'COD',	
             status: this.state.status,	
-            delivered: this.state.delivered	
+            delivered: this.state.delivered
         }	
         if (orderData.fname === '' || orderData.lname === '' || orderData.phone === ''	
             || orderData.houseadd === '' || orderData.postCode === '') {	
                 // alert("All fields are required.")	
             this.setState({	
                 errors: { ...this.state.errors, emptyFields: "All fields are required" }	
-            })	
-            	
+            })		         	
         }	
-        else if(orderData.payment === 'NetBanking' || orderData.payment === 'CDcard') {	
-            this.paymentProcess(orderData);	
+        else if(orderData.payment === 'NetBanking' || orderData.payment === 'Through Card') {
+            console.log("orderData+++", orderData)	
+            this.props.dispatch(placeOrder(orderData));
+            this.setState({	
+                errors: { ...this.state.errors, emptyFields: "" },	
+                success: "Redirecting to payment...!"	
+            })	
+            if(this.state.couponDiscount) {	
+                let ele = document.getElementById('coupon');	
+                let id = ele[ele.selectedIndex].id;	
+                this.props.dispatch(updateCoupon(id, {email: this.state.userEmail}));	
+            }
+            setTimeout(() => {	
+                this.paymentProcess(orderData);	
+            }, 2000);	
         }	
         else {	
             this.props.dispatch(placeOrder(orderData));	
@@ -219,7 +237,7 @@ class PlaceOrder extends React.Component {
                 this.props.dispatch(updateCoupon(id, {email: this.state.userEmail}));	
             }	
             setTimeout(() => {	
-                this.props.history.push('/orders');	
+                this.props.history.push('/customer_orders');
             }, 2000);	
         }	
        	
@@ -243,7 +261,7 @@ class PlaceOrder extends React.Component {
                 blurHandler = {this.blurHandler}	
                 submitHandler = {this.submitHandler}	
                 quantitychangeHandler = {this.quantitychangeHandler}	
-                error = {this.state.errors.emptyFields}	
+                error = {this.state.errors.emptyField}	
                 success = {this.state.success}	
                 couponChangeHandler = {this.couponChangeHandler}	
             />	
@@ -252,8 +270,7 @@ class PlaceOrder extends React.Component {
         }	
         	
     }	
-    render() {	
-        // let productData = JSON.parse(sessionStorage.getItem('productData'))	
+    render() {		
         	
         return(	
             <div>	

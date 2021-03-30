@@ -21,15 +21,15 @@ const CartDisplay = (props) => {
                 return data.cartData.map((item) => {
                     return (
                         <div className="cartContainer" key={item._id}>
-                            <div className="row">
-                                <div className="col-sm-5">
-                                    <center>
-                                        <img className="cartImage" src={item.mainImage} alt="cartImage"/>
-                                    </center>
-                                </div>
+                            <div className="cartImage">
+                                <img src={item.mainImage} alt="cartImage"/>
+                            </div>
 
-                                <div className="col-sm-7">
-                                    <Link to={`/detail/${item.asin}`} style={{textDecoration:"none" ,color:"#67AFCB"}}><h3 className="link">{item.title}</h3></Link>
+                            <center>
+                                <div className="cartData">
+                                    <div className="cartTitle">
+                                        <Link to={`/detail/${item.asin}`} style={{textDecoration:"none" ,color:"#67AFCB"}}><h3 className="link">{item.title}</h3></Link>
+                                    </div>
                                     <p><b style={{color:'orange'}}>Rating: </b><span className="rating">{item.rating}</span> out of 5</p>
                                     <p><b>M.R.P: </b><del>Rs. {item.price.before_price}</del></p>
                                     <p><b>Price: </b>Rs.<b className="amount">{item.price.current_price}</b></p>
@@ -39,7 +39,7 @@ const CartDisplay = (props) => {
                                     &nbsp;
                                     <button onClick={removeItem} className="btn btn-danger" value={item._id}>Remove</button>
                                 </div>
-                            </div>
+                            </center>
                         </div>
                     );
                 })
@@ -58,9 +58,14 @@ const CartDisplay = (props) => {
     }
 
     return (
-        <div className="container">
+        <div className="cartDisplay">
             <h2 className="cartHeading">Shopping Cart</h2>
-            {renderCartData(props)}
+            <hr/>
+            <center>
+                <div className="cartProducts">
+                    {renderCartData(props)}
+                </div>
+            </center>
         </div>
     );
 }

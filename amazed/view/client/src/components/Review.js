@@ -2,7 +2,7 @@ import './Review.css';
 
 const Review = (props) => {
     const renderReviews = (data) => {
-        if(data){
+        if(data && data.reviews){
             if(data.reviews.length > 0){
                 return data.reviews.map((item) => {
                     return (

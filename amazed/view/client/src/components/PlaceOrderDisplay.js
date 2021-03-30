@@ -3,15 +3,15 @@ const PlaceOderDisplay = (props) => {
     const renderCoupon = (data) => {
         // console.log(data)
         return data.map((item) => {
-            return(
+            return (
                 <option key={item._id} value={item.discount}>{item.couponName}</option>
             )
-        })        
+        })
     }
 
     const renderOptions = (data) => {
         // console.log(data)
-        if(data && data.length > 0) {
+        if (data && data.length > 0) {
             let flag = true;
             return data.map((item, idx) => {
                 let categoryNumber = sessionStorage.getItem('categoryNumber');
@@ -19,21 +19,21 @@ const PlaceOderDisplay = (props) => {
                 let date = new Date();
                 let tDate = `${date.getFullYear()}-${(date.getMonth() + 1)}-${date.getDate()}`;
                 let userEmail = sessionStorage.getItem('loggedInEmail');
-                
-                if(item.categoryNumber.toString() === categoryNumber && expiryDate >= new Date(tDate)) {
-                    if(!item.usedBy.includes(userEmail)) {
+
+                if (item.categoryNumber.toString() === categoryNumber && expiryDate >= new Date(tDate)) {
+                    if (!item.usedBy.includes(userEmail)) {
                         flag = false;
                         return (
-                            <option 
-                                key={item._id} 
+                            <option
+                                key={item._id}
                                 id={item._id}
                                 value={item.discountPercent}>
-                                    {item.couponName}
+                                {item.couponName}
                             </option>
                         );
                     }
                 }
-                if(flag && idx === data.length - 1) {
+                if (flag && idx === data.length - 1) {
                     return (
                         <option>Not Available</option>
                     )
@@ -42,9 +42,9 @@ const PlaceOderDisplay = (props) => {
         }
     }
 
-    return(
+    return (
         <div className="order-outer-container">
-                <form>
+            <form>
                 <div className="container order-container">
                     <div className="order-title">
                         <h2 className="order-h2">Product Order Form</h2>
@@ -53,30 +53,30 @@ const PlaceOderDisplay = (props) => {
                         <form className="order-form" >
                             <label className="order-label">
                                 <span className="fname">First Name <span className="required">*</span></span>
-                                <input 
-                                    type="text" 
-                                    name="fname" 
+                                <input
+                                    type="text"
+                                    name="fname"
                                     autoComplete="new-off"
-                                    value= {props.userData.fname}
+                                    value={props.userData.fname}
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
                                     onBlur={(event) => props.blurHandler(event.target.name, event.target.value)} />
                                 <p className="error-display">{props.userData.errors.fname}</p>
                             </label>
                             <label className="order-label">
                                 <span className="lname">Last Name <span className="required">*</span></span>
-                                <input 
-                                    type="text" 
-                                    name="lname" 
+                                <input
+                                    type="text"
+                                    name="lname"
                                     autoComplete="new-off"
-                                    value= {props.userData.lname}
+                                    value={props.userData.lname}
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
                                     onBlur={(event) => props.blurHandler(event.target.name, event.target.value)} />
                                 <p className="error-display">{props.userData.errors.lname}</p>
                             </label>
                             <label className="order-label">
                                 <span>Address <span className="required">*</span></span>
-                                <input type="text" 
-                                    name="houseadd" 
+                                <input type="text"
+                                    name="houseadd"
                                     autoComplete="new-off"
                                     placeholder="House number and street name"
                                     value={props.userData.houseadd}
@@ -86,9 +86,9 @@ const PlaceOderDisplay = (props) => {
                             </label>
                             <label className="order-label">
                                 <span>&nbsp;</span>
-                                <input 
-                                    type="text" 
-                                    name="apartment" 
+                                <input
+                                    type="text"
+                                    name="apartment"
                                     autoComplete="new-off"
                                     value={props.userData.apartment}
                                     placeholder="Apartment, suite, unit etc. (optional)"
@@ -96,9 +96,9 @@ const PlaceOderDisplay = (props) => {
                             </label>
                             <label className="order-label">
                                 <span>Town / City <span className="required">*</span></span>
-                                <input 
-                                    type="text" 
-                                    name="city" 
+                                <input
+                                    type="text"
+                                    name="city"
                                     autoComplete="new-off"
                                     value={props.userData.city}
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
@@ -107,9 +107,9 @@ const PlaceOderDisplay = (props) => {
                             </label>
                             <label className="order-label">
                                 <span>State <span className="required">*</span></span>
-                                <input 
-                                    type="text" 
-                                    name="state" 
+                                <input
+                                    type="text"
+                                    name="state"
                                     autoComplete="new-off"
                                     value={props.userData.state}
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
@@ -118,17 +118,17 @@ const PlaceOderDisplay = (props) => {
                             </label>
                             <label className="order-label">
                                 <span>Country</span>
-                                <input 
-                                    type="text" 
-                                    name="country" 
+                                <input
+                                    type="text"
+                                    name="country"
                                     value={props.userData.country} readOnly
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)} />
                             </label>
                             <label className="order-label">
                                 <span>Postcode <span className="required">*</span></span>
-                                <input 
-                                    type="text" 
-                                    name="postCode" 
+                                <input
+                                    type="text"
+                                    name="postCode"
                                     autoComplete="new-off"
                                     value={props.userData.postCode}
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
@@ -137,9 +137,9 @@ const PlaceOderDisplay = (props) => {
                             </label>
                             <label className="order-label">
                                 <span>Phone <span className="required">*</span></span>
-                                <input 
-                                    type="tel" 
-                                    name="phone" 
+                                <input
+                                    type="tel"
+                                    name="phone"
                                     autoComplete="new-off"
                                     value={props.userData.phone}
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
@@ -148,13 +148,13 @@ const PlaceOderDisplay = (props) => {
                             </label>
                             <label className="order-label">
                                 <span>Email Address <span className="required">*</span></span>
-                                <input 
-                                    type="email" 
-                                    name="email" 
+                                <input
+                                    type="email"
+                                    name="email"
                                     autoComplete="new-off"
                                     value={props.userData.email}
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)}
-                                    onBlur={(event) => props.blurHandler(event.target.name, event.target.value)}/>
+                                    onBlur={(event) => props.blurHandler(event.target.name, event.target.value)} />
                                 <p className="error-display">{props.userData.errors.email}</p>
                             </label>
                         </form>
@@ -172,12 +172,12 @@ const PlaceOderDisplay = (props) => {
                                     <tr>
                                         <td>Price</td>
                                         <tr>
-                                            <td>Before: &#8377;{props.userData.beforePrice}</td>	
-                                        </tr>	
-                                        <tr>	
-                                            <td>Saving: &#8377;{props.userData.savingAmount}</td>	
-                                        </tr>	
-                                        <tr>	
+                                            <td>Before: &#8377;{props.userData.beforePrice}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saving: &#8377;{props.userData.savingAmount}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Now: &#8377;{props.userData.currentPrice}</td>
                                         </tr>
                                     </tr>
@@ -200,14 +200,14 @@ const PlaceOderDisplay = (props) => {
                                             <select id="coupon" name="coupon" defaultValue="default"
                                                 onChange={(event) => props.couponChangeHandler(event.target.value)}>
                                                 <option value="default">----Select the Coupon----</option>
-                                                { renderOptions(props.coupons) }
+                                                {renderOptions(props.coupons)}
                                             </select>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td>Total</td>
-                                        <td>&#8377;{props.userData.grandTotal?props.userData.grandTotal:props.userData.totalPrice}</td>
+                                        <td>&#8377;{props.userData.grandTotal ? props.userData.grandTotal : props.userData.totalPrice}</td>
                                     </tr>
                                     <tr>
                                         <td>Shipping</td>
@@ -216,9 +216,9 @@ const PlaceOderDisplay = (props) => {
                                 </tbody>
                             </table><br />
                             <div className="radios">
-                                <input 
-                                    type="radio" 
-                                    name="payment" 
+                                <input
+                                    type="radio"
+                                    name="payment"
                                     value="NetBanking"
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)} />
                                 <label className="order-label1">Net Banking</label>
@@ -227,18 +227,18 @@ const PlaceOderDisplay = (props) => {
                                 Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
                             </p> */}
                             <div className="radios">
-                                <input 
-                                    type="radio" 
-                                    name="payment" 
-                                    value="COD" 
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="COD"
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)} />
                                 <label className="order-label1">Cash on Delivery</label>
                             </div>
                             <div className="radios">
-                                <input 
-                                    type="radio" 
-                                    name="payment" 
-                                    value="CDcard"
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="Through Card"
                                     onChange={(event) => props.changeHandler(event.target.name, event.target.value)} />
                                 <label className="order-label1">Credit / Debit Card</label>
                                 <span>
@@ -246,13 +246,13 @@ const PlaceOderDisplay = (props) => {
                                 </span>
                             </div>
 
-                            <div style={{fontSize:"16px",color:"red"}}>
+                            <div style={{ fontSize: "16px", color: "red" }}>
                                 <center>
                                     <span>{props.error}</span>
                                 </center>
                             </div>
 
-                            <div style={{fontSize:"16px",color:"green"}}>
+                            <div style={{ fontSize: "16px", color: "green" }}>
                                 <center>
                                     <span>{props.success}</span>
                                 </center>
@@ -263,8 +263,8 @@ const PlaceOderDisplay = (props) => {
                         </div>
                     </div>
                 </div>
-                </form>
-            </div>
+            </form>
+        </div>
     );
 }
 

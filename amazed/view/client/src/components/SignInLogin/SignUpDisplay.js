@@ -30,7 +30,7 @@ const SignUpDisplay = (props) => {
                         />
                     </div>
 
-                    <button type="submit" className="btn btn-primary btn-block"
+                    <button type="submit" className="btn btn-warning btn-block"
                     onClick= {props.submitHandler}>Create</button>
                 </>
             );
@@ -38,7 +38,7 @@ const SignUpDisplay = (props) => {
         else {
             return (
                 <>
-                    <button type="submit" className="btn btn-primary btn-block"
+                    <button type="submit" className="btn btn-warning btn-block"
                     onClick= {props.submitHandler}>Sign Up</button>
                     <p className="forgot-password text-right">
                         Already registered? <Link to='/signin'  style={{color:"dodgerblue"}}>sign in</Link>
@@ -51,7 +51,7 @@ const SignUpDisplay = (props) => {
     return(
         <div className="main-continer">
             <div className="form-class">
-            <form className="form-data" enctype="multipart/form-data">
+            <form className="form-data" encType="multipart/form-data">
                 {renderHeading()}
 
                 <div className="form-group">
@@ -59,7 +59,7 @@ const SignUpDisplay = (props) => {
                     <input 
                         type="text" 
                         className="form-control" 
-                        placeholder="User name"
+                        placeholder="Enter User name"
                         autoComplete="new-off" 
                         name="userName"
                         value={props.signUpDetails.userName}
@@ -89,8 +89,8 @@ const SignUpDisplay = (props) => {
                         className="form-control" 
                         placeholder="Enter password"
                         autoComplete="new-off" 
-                        name="passWord"
-                        value={props.signUpDetails.passWord}
+                        name="password"
+                        value={props.signUpDetails.password}
                         onChange = {(event)=>props.changeHandler(event.target.name,event.target.value)}
                         onBlur = {(event)=>props.blurHandler(event.target.name,event.target.value)}/>
                     <p className="error-display">{props.signUpDetails.errors.passWord}</p>
@@ -138,7 +138,17 @@ const SignUpDisplay = (props) => {
                 </div>
 
                 <div style={{fontSize:"16px",color:"red"}}>
-                    <span>{props.error}</span>
+                    {
+                        props.error !== "success" &&
+                        <span>{props.error}</span>
+                    }
+                </div>
+
+                <div style={{fontSize:"16px",color:"green"}}>
+                    {
+                        props.error === "success" &&
+                        <span>Registeration Successful</span>
+                    }
                 </div>
 
                 {renderButton()}

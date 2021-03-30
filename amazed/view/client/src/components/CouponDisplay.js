@@ -90,7 +90,7 @@ const CouponDisplay = (props) => {
                             <Tab style={{color:'green'}}>Expired</Tab>
                         </TabList>
 
-                        <TabPanel>
+                        <TabPanel style={{overflowX: "scroll"}}>
                             <div 
                                 className="form-group" 
                                 style={{fontSize:"16px"}}
@@ -124,7 +124,7 @@ const CouponDisplay = (props) => {
                             </table>
                         </TabPanel>
 
-                        <TabPanel>
+                        <TabPanel style={{overflowX: "scroll"}}>
                             <div 
                                 className="form-group" 
                                 style={{fontSize:"16px"}}

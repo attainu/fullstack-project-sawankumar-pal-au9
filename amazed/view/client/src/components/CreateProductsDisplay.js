@@ -10,6 +10,74 @@ const CreateProductsDisplay = (props) => {
         props.changeHandler(categoryNumber.name, categoryNumber.value);
     }
 
+    const renderDiscounted = (e) => {
+        let flag = e.target.value;
+        let price = document.querySelector('#current_price');
+        let savingAmount = document.querySelector('#savings_amount');
+        let savingPercent = document.querySelector('#savings_percent');
+        let beforePrice = document.querySelector('#before_price');
+        let conditionBased = document.getElementsByClassName('conditionBased')[0];
+
+        if(flag === "true") {
+            conditionBased.style.display = "block";
+            price.value = 0;
+        }else {
+            conditionBased.style.display = "none";
+            savingAmount.value = 0;
+            savingPercent.value = 0;
+            price.value = beforePrice.value;
+            props.renderPriceChange(price.name, price.value);
+        }
+
+        props.renderPriceChange(e.target.name, e.target.value);
+    }
+
+    const renderCurrentPrice = (e) => {
+        let price = e.target.value;
+        let beforePrice = document.querySelector('#before_price');
+        let savingAmount = document.querySelector('#savings_amount');
+        let savingPercent = document.querySelector('#savings_percent');
+        
+        if(beforePrice.value && parseInt(beforePrice.value) > parseInt(price)) {
+            savingAmount.value = beforePrice.value - price;
+        }else {
+            savingAmount.value = 0;
+        }
+
+        if(savingAmount.value) {
+            savingPercent.value = (savingAmount.value / beforePrice.value)*100; 
+        }else {
+            savingPercent.value = 0;
+        }
+
+        props.renderPriceChange(e.target.name, e.target.value);
+    }
+
+    const renderBeforePrice = (e) => {
+        let price = document.querySelector('#current_price');
+        let beforePrice = e.target.value;
+        let savingAmount = document.querySelector('#savings_amount');
+        let savingPercent = document.querySelector('#savings_percent');
+        
+        if(price.value && parseInt(beforePrice) > parseInt(price.value)) {
+            savingAmount.value = beforePrice - price.value;
+        }else {
+            savingAmount.value = 0;
+        }
+
+        if(savingAmount.value) {
+            savingPercent.value = (savingAmount.value / beforePrice)*100; 
+        }else {
+            savingPercent.value = 0;
+        }
+
+        props.renderPriceChange(e.target.name, e.target.value);
+
+        price.value = e.target.value;
+        props.renderPriceChange(price.name, price.value);
+    }
+    
+
     return (
         <div className="container">
             <form className="form-group col-md-6 col-md-offset-3 create-products-form" encType="multipart/form-data" >
@@ -22,6 +90,7 @@ const CreateProductsDisplay = (props) => {
 
                     <input 
                         type="text" 
+                        style={{textTransform: "uppercase"}}
                         className="form-control field-value"
                         placeholder="Enter asin code"
                         name="asin" 
@@ -111,12 +180,13 @@ const CreateProductsDisplay = (props) => {
                     </label>
 
                     <select 
+                        defaultValue="default"
                         className="form-control field-value"
                         name="category" onChange={handleChange} 
                         required>
-                            <option selected disabled>Select Category</option>
+                            <option value="default" disabled>Select Category</option>
                             {
-                                props.categories &&
+                                props.categories && props.categories.length > 0 &&
                                 props.categories.map(item => {
                                     return (
                                         <option key={item._id} value={item.categoryNumber}>
@@ -153,55 +223,11 @@ const CreateProductsDisplay = (props) => {
                         className="form-control field-value"
                         id="before_price" 
                         name="before_price"
-                        onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
+                        onChange={ renderBeforePrice }
                         required>
                     </input>
                 </div>
 
-                <div className="products-data">
-                    <label className="field" htmlFor="current_price">
-                        Product Current Price
-                    </label>
-
-                    <input 
-                        type="number" 
-                        className="form-control field-value"
-                        id="current_price" 
-                        name="current_price"
-                        onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
-                        required>
-                    </input>
-                </div>
-
-                <div className="products-data">
-                    <label className="field" htmlFor="savings_amount">
-                        Savings Amount
-                    </label>
-
-                    <input 
-                        type="number" 
-                        className="form-control field-value"
-                        id="savings_amount" 
-                        name="savings_amount"
-                        onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
-                        required>
-                    </input>
-                </div>
-
-                <div className="products-data">
-                    <label className="field" htmlFor="savings_percent">
-                        Savings Percent
-                    </label>
-
-                    <input 
-                        type="number" 
-                        className="form-control field-value"
-                        id="savings_percent" 
-                        name="savings_percent"
-                        onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
-                        required>
-                    </input>
-                </div>
 
                 <div className="products-data">
                     <label className="field" htmlFor="discounted">
@@ -215,7 +241,7 @@ const CreateProductsDisplay = (props) => {
                         id="discounted" 
                         name="discounted"
                         value= "true"
-                        onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
+                        onChange={ renderDiscounted }
                         >
                     </input>True
                     </label>
@@ -227,11 +253,58 @@ const CreateProductsDisplay = (props) => {
                         id="discounted" 
                         name="discounted"
                         value= "false"
-                        onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
+                        onChange={ renderDiscounted }
                         >
                     </input>False
                     </label>
-                </div>         
+                </div> 
+                
+                <div className="conditionBased">
+                    <div className="products-data">
+                        <label className="field" htmlFor="current_price">
+                            Product Current Price
+                        </label>
+
+                        <input 
+                            type="number" 
+                            className="form-control field-value"
+                            id="current_price" 
+                            name="current_price"
+                            onChange={ renderCurrentPrice }
+                            required>
+                        </input>
+                    </div>
+
+                    <div className="products-data">
+                        <label className="field" htmlFor="savings_amount">
+                            Savings Amount
+                        </label>
+
+                        <input 
+                            type="number" 
+                            className="form-control field-value"
+                            id="savings_amount" 
+                            name="savings_amount"
+                            onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
+                            required readOnly>
+                        </input>
+                    </div>
+
+                    <div className="products-data">
+                        <label className="field" htmlFor="savings_percent">
+                            Savings Percent
+                        </label>
+
+                        <input 
+                            type="number" 
+                            className="form-control field-value"
+                            id="savings_percent" 
+                            name="savings_percent"
+                            onChange={(e) => props.renderPriceChange(e.target.name, e.target.value)}
+                            required readOnly>
+                        </input>
+                    </div> 
+                </div>       
 
                 <div className="products-data">
                     <label className="field" htmlFor="thumbnailFile">
@@ -355,6 +428,8 @@ const CreateProductsDisplay = (props) => {
                 </div>
                                 
                 <br/>
+                
+                <span id="cprod_err">{ props.error }</span>
 
                 <div>
                     <input

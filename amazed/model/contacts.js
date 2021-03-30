@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 const ContactSchema = mongoose.Schema({
     date:{
-        type:String,
+        type:Date,
         required:true
     },
     userName:{

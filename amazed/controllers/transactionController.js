@@ -5,6 +5,7 @@ import Transaction from '../model/transctions.js';
 import config from '../config.js';
 
 export const newOrders = (req,res) => {
+    
     let instance = new Razorpay({
         key_id: config.razorpay_auth.key_id,
         key_secret: config.razorpay_auth.key_secret
@@ -46,7 +47,6 @@ export const newPayment = (req,res) => {
 
 export const getPayment = async(req,res) =>{
     const Id = req.params.id
-    
     try{
         
         const result = await Transaction.findById(Id)
@@ -59,4 +59,3 @@ export const getPayment = async(req,res) =>{
     }
 
 };
-

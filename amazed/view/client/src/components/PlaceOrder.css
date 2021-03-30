@@ -153,3 +153,13 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
+
+@media only screen and (max-width: 640px) {
+  .d-flex {
+    display:block;
+  }
+
+  .Yorder {
+    padding: 5px;
+  }
+}

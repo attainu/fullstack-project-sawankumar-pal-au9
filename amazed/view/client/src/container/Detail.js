@@ -39,7 +39,7 @@ class Detail extends React.Component {
         this.props.dispatch(addToCart(cartData));
 
         setTimeout(() => {
-            this.props.history.push('/cart');
+            this.props.history.push('/customer_cart');
         }, 500);
       
     }

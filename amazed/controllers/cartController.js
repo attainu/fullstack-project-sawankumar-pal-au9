@@ -1,12 +1,21 @@
 import Cart from '../model/cartModel.js';
+import { checkEmail } from '../utils/validator.js';
+import moment from 'moment';
 
 //Add to Cart
 export const ItemToCart = async(req,res) => {
-    const date = new Date();
-    const month = date.toLocaleString('default', { month:'long' });
+    let cur_date = moment(new Date(Date.now())).format('YYYY-MM-DD HH:mm:ss');
+
+    if(!req.session.user && req.session.user.role !=='User') {
+        return res.status(400).send('No Session Found! Please Login Again')
+    }
+    const IsValid = checkEmail(req.body.userEmail);
+    if(!IsValid){
+        res.send("Invalid Email")
+    }
     try{
         let data = {
-            date : req.body.date ? req.body.date : `${date.getDay()} ${month} ${date.getFullYear()}`,
+            date : req.body.date ? req.body.date : cur_date,
             userName : req.body.userName,
             userEmail : req.body.userEmail,
             asin : req.body.product.asin,
@@ -31,6 +40,11 @@ export const ItemToCart = async(req,res) => {
 
 // get cart by id
 export const ItemById = async(req,res) => {
+
+    if(!req.session.user && req.session.user.role !=='User') {
+        return res.status(400).send('No Session Found! Please Login Again')
+    }
+
     try{
         const _id = req.params.id
         console.log(_id)
@@ -48,6 +62,16 @@ export const ItemById = async(req,res) => {
 
 //get cart items by user name
 export const ItemByEmail = async(req,res) => {
+
+    if(!req.session.user && req.session.user.role !=='User') {
+        return res.status(400).send('No Session Found! Please Login Again')
+    }
+
+    const IsValid = checkEmail(req.query.email);
+    if(!IsValid){
+        res.send("Invalid Email")
+    }
+
     try{
         const email = req.query.email
         const result = await Cart.find({userEmail:email}).sort({ date: -1})
@@ -63,6 +87,10 @@ export const ItemByEmail = async(req,res) => {
 
 //delete item on cart
 export const deleteItem = async (req, res) => {
+
+    if(!req.session.user && req.session.user.role !=='User') {
+        return res.status(400).send('No Session Found! Please Login Again')
+    }
 
     try {
         const _id = req.params.id

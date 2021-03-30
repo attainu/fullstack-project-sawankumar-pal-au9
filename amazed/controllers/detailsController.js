@@ -10,6 +10,10 @@ export const addNew = async (req, res) => {
     const month = date.toLocaleString('default', { month: 'long' });
 
     try {
+        if(!req.session.user && req.session.user.role !=='Admin') {	
+            return res.status(400).send('No Session Found! Please Login Again')	
+        }
+        
         let data = {
             asin: asin,
             title: title,
@@ -22,7 +26,7 @@ export const addNew = async (req, res) => {
             product_information: {
                 dimensions: dimensions,
                 weight: weight,
-                available_from: `${date.getDay()} ${month} ${date.getFullYear()}`,
+                available_from: `${date.getDate()} ${month} ${date.getFullYear()}`,
                 available_from_utc: date.toISOString(),
                 manufacturer: manufacturer,
                 model_number: model_number,
@@ -67,13 +71,15 @@ export const getDetail = async (req, res) => {
 }
 
 //Delete detail
-export const deleteDetail = async (req, res) => {
-    try {
-        const data = await Details.deleteOne({"asin": req.body.asin});
-
-        return res.status(200).send({"success": "Deleted Successfully!"})
-    }
-    catch(error) {
-        return res.status(409).send({"err": error.message});
-    }
+export const deleteDetail = async (req, res) => {	
+    try {	
+        if(!req.session.user && req.session.user.role !=='Admin') {	
+            return res.status(400).send('No Session Found! Please Login Again')	
+        }	
+        const data = await Details.deleteOne({"asin": req.body.asin});	
+        return res.status(200).send({"success": "Deleted Successfully!"})	
+    }	
+    catch(error) {	
+        return res.status(409).send({"err": error.message});	
+    }	
 }

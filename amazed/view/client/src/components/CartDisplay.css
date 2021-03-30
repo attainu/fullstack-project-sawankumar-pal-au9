@@ -1,25 +1,67 @@
 .cartContainer {
+    display: inline-block;
     border: 2px solid #f8f8ff;
     border-radius: 10px;
     box-shadow: 4px 4px 12px grey;
     background-color: #f8f8ff;
-    margin: 20px 0px;
-    padding: 10px;
-    max-width: 95%;
-    max-height: 800px;
-    overflow: hidden; 
+    margin: 20px 0 20px 25px;
+    width: 31%;
+    height: 550px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in 0s;
+}
+
+.cartContainer:hover {
+    transform: scale(1.03,1.03);
+    z-index: 1;
 }
 
 .cartImage {
-    max-width: 95%;
-    max-height: 280px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartImage > img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+.cartTitle {
+    height: 75px;
+    overflow: hidden;
+}
+
+.cartContainer * {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.cartContainer * p {
+    font-size: 20px;
 }
 
 .cartHeading {
     font-weight: 700;
     color: #1A3E4C;
+    text-align: center;
+    background-color: lavender;
 }
 
 .emptyDisplay {
     margin-bottom: 10%;
+}
+
+@media only screen and (max-width: 1200px) {
+    .cartContainer {
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .cartContainer {
+        width: 80%;
+        margin: 20px;
+    }
 }
